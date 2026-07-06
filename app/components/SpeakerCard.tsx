@@ -1,4 +1,6 @@
+import Image from "next/image";
 import type { Speaker } from "./SpeakerData";
+import { Badge } from "@/components/ui/badge";
 
 export default function SpeakerCard({
   speaker,
@@ -18,20 +20,38 @@ export default function SpeakerCard({
           } as React.CSSProperties
         }
       >
-        <span className="ini">{speaker.initials}</span>
-        <span className="ph-tag">Foto</span>
+        {speaker.photo ? (
+          <Image
+            src={speaker.photo}
+            alt={speaker.name}
+            fill
+            sizes="(max-width:640px) 100vw, (max-width:980px) 50vw, 25vw"
+            className="object-cover"
+            style={{ width: "100%", height: "100%" }}
+          />
+        ) : (
+          <span className="ini">{speaker.initials}</span>
+        )}
+        <span className="ph-tag">Conferencista</span>
       </div>
 
-      <span
-        className="speaker-tag"
-        style={{ "--tagc": speaker.tagColor } as React.CSSProperties}
+      <Badge
+        className="speaker-badge-tag"
+        style={
+          {
+            backgroundColor: "color-mix(in srgb, var(--tagc, var(--blue)) 12%, transparent)",
+            color: "var(--tagc, var(--blue))",
+            "--tagc": speaker.tagColor,
+          } as React.CSSProperties
+        }
       >
-        {speaker.credential} · {speaker.country}
-      </span>
+        {speaker.credential}
+      </Badge>
 
       <h3 className="speaker-name">{speaker.name}</h3>
-
-      <p className="speaker-institution">{speaker.institution}</p>
+      <p className="speaker-institution">
+        {speaker.institution} · {speaker.country}
+      </p>
 
       <p
         className="speaker-talk-new"
@@ -46,7 +66,11 @@ export default function SpeakerCard({
         ))}
       </ul>
 
-      <button className="btn btn-ghost speaker-more" onClick={onOpen} type="button">
+      <button
+        className="btn btn-ghost speaker-more"
+        onClick={onOpen}
+        type="button"
+      >
         Ver perfil completo
         <svg
           width="16"

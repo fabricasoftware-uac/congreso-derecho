@@ -1,12 +1,5 @@
 import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import StatsSection from "./components/StatsSection";
-import SpeakersSection from "./components/SpeakersSection";
-import ThematicLinesSection from "./components/ThematicLinesSection";
-import AgendaSection from "./components/AgendaSection";
-import PricingSection from "./components/PricingSection";
-import CFPSection from "./components/CFPSection";
-import FinalCTASection from "./components/FinalCTASection";
+import PageContent from "./components/PageContent";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -18,14 +11,7 @@ export default function Home() {
       <Navbar />
       <main id="contenido">
         <span id="top"></span>
-        <HeroSection />
-        <StatsSection />
-        <SpeakersSection />
-        <ThematicLinesSection />
-        <AgendaSection />
-        <PricingSection />
-        <CFPSection />
-        <FinalCTASection />
+        <PageContent />
       </main>
       <Footer />
     </>

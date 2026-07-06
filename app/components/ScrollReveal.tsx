@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { motion, type Variants } from "motion/react";
+import type { ReactNode } from "react";
+
+const revealVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export default function ScrollReveal({
   children,
@@ -9,36 +15,19 @@ export default function ScrollReveal({
   children: ReactNode;
   stagger?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div
-      ref={ref}
-      className="reveal"
-      data-stagger={stagger ? "" : undefined}
-      style={stagger ? ({ "--d": stagger } as React.CSSProperties) : undefined}
+    <motion.div
+      variants={revealVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -8% 0px", amount: 0.12 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.2, 0.7, 0.2, 1] as const,
+        delay: stagger ? parseFloat(stagger) : 0,
+      }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

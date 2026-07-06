@@ -1,6 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { useRef } from "react";
+import Image from "next/image";
+import { AnimatePresence, motion } from "motion/react";
+import { Dialog } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
 import type { Speaker } from "./SpeakerData";
 
 const sectionIcons: Record<string, string> = {
@@ -56,204 +61,151 @@ function CVSection({
 
 export default function SpeakerModal({
   speaker,
-  speakerIndex,
-  total,
   onClose,
-  onPrev,
-  onNext,
-  hasPrev,
-  hasNext,
 }: {
   speaker: Speaker;
-  speakerIndex: number;
-  total: number;
   onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-  hasPrev: boolean;
-  hasNext: boolean;
 }) {
-  const modalRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const previousFocus = useRef<HTMLElement | null>(null);
-
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft" && hasPrev) {
-        e.preventDefault();
-        onPrev();
-        bodyRef.current?.scrollTo({ top: 0, behavior: "instant" });
-      }
-      if (e.key === "ArrowRight" && hasNext) {
-        e.preventDefault();
-        onNext();
-        bodyRef.current?.scrollTo({ top: 0, behavior: "instant" });
-      }
-    },
-    [onClose, onPrev, onNext, hasPrev, hasNext]
-  );
-
-  useEffect(() => {
-    previousFocus.current = document.activeElement as HTMLElement;
-    document.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-
-    requestAnimationFrame(() => {
-      modalRef.current?.classList.add("modal--visible");
-    });
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-      previousFocus.current?.focus();
-    };
-  }, [handleKeyDown]);
-
   const { cv } = speaker;
 
   return (
-    <div
-      className="modal-overlay"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-      role="dialog"
-      aria-modal="true"
-      aria-label={`Perfil completo de ${speaker.name}`}
-    >
-      <div className="modal-card" ref={modalRef}>
-        <div className="modal-topbar">
-          <div className="modal-nav-group">
-            <button
-              className="modal-nav-btn"
-              onClick={() => {
-                onPrev();
-                bodyRef.current?.scrollTo({ top: 0, behavior: "instant" });
-              }}
-              disabled={!hasPrev}
-              aria-label="Conferencista anterior"
-              type="button"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-
-            <span className="modal-counter">
-              {speakerIndex + 1} de {total}
-            </span>
-
-            <button
-              className="modal-nav-btn"
-              onClick={() => {
-                onNext();
-                bodyRef.current?.scrollTo({ top: 0, behavior: "instant" });
-              }}
-              disabled={!hasNext}
-              aria-label="Siguiente conferencista"
-              type="button"
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
-
-          <button
-            className="modal-close"
-            onClick={onClose}
-            aria-label="Cerrar perfil"
-            type="button"
+    <AnimatePresence>
+      <Dialog
+        open={true}
+        onOpenChange={(open) => {
+          if (!open) onClose();
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 bg-[rgba(11,39,64,.48)] backdrop-blur-md"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+        />
+        <div className="modal-positioner">
+          <motion.div
+            key={speaker.name}
+            initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] as const }}
+            className="modal-card pointer-events-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Perfil completo de ${speaker.name}`}
           >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
-            <span className="modal-close-label">Esc</span>
-          </button>
-        </div>
-
-        <div className="modal-body" ref={bodyRef}>
-          <div className="modal-header">
-            <div className="modal-header-badges">
-              {speaker.credential && (
-                <span
-                  className="modal-badge modal-badge--credential"
-                  style={
-                    { "--badge-bg": speaker.tagColor, "--badge-alpha": "0.12" } as React.CSSProperties
-                  }
-                >
-                  {speaker.credential}
-                </span>
-              )}
-              <span className="modal-badge modal-badge--country">{speaker.country}</span>
-              <span className="modal-badge modal-badge--institution">
-                {speaker.institution}
-              </span>
-            </div>
-
-            <div className="modal-header-main">
-              <div
-                className="modal-hero-photo"
-                style={
-                  {
-                    "--c1": speaker.gradientC1,
-                    "--c2": speaker.gradientC2,
-                  } as React.CSSProperties
-                }
+            <div className="modal-topbar">
+              <span />
+              <button
+                className="modal-close"
+                onClick={onClose}
+                aria-label="Cerrar perfil"
+                type="button"
               >
-                <span className="modal-hero-ini">{speaker.initials}</span>
-              </div>
-              <div>
-                <h2 className="modal-hero-name">{speaker.name}</h2>
-                <p
-                  className="modal-hero-talk"
-                  style={
-                    { "--talk-color": speaker.tagColor } as React.CSSProperties
-                  }
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  {speaker.talkTitle}
-                </p>
-              </div>
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+                <span className="modal-close-label">Esc</span>
+              </button>
             </div>
-          </div>
 
-          <div className="modal-cv">
-            <CVSection title="Formación académica" items={cv.formacion} />
-            <CVSection title="Docencia y cargos" items={cv.docencia} />
-            <CVSection title="Membresías y reconocimientos" items={cv.membresias} />
-            <CVSection title="Publicaciones" items={cv.publicaciones} />
-            <CVSection title="Líneas de investigación" items={cv.investigacion || []} />
-          </div>
+            <ScrollArea ref={bodyRef} className="modal-body">
+              <div className="modal-header">
+                <div className="modal-header-badges">
+                  {speaker.credential && (
+                    <Badge
+                      className="modal-badge-credential"
+                      style={
+                        {
+                          color: speaker.tagColor,
+                          background: `color-mix(in srgb, ${speaker.tagColor} 12%, transparent)`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      {speaker.credential}
+                    </Badge>
+                  )}
+                  <Badge className="modal-badge-country">
+                    {speaker.country}
+                  </Badge>
+                  <Badge variant="outline" className="modal-badge-institution">
+                    {speaker.institution}
+                  </Badge>
+                </div>
+
+                <div className="modal-header-main">
+                  <div
+                    className="modal-hero-photo"
+                    style={
+                      {
+                        "--c1": speaker.gradientC1,
+                        "--c2": speaker.gradientC2,
+                      } as React.CSSProperties
+                    }
+                  >
+                    {speaker.photo ? (
+                      <Image
+                        src={speaker.photo}
+                        alt={speaker.name}
+                        fill
+                        className="modal-hero-img"
+                      />
+                    ) : (
+                      <span className="modal-hero-ini">
+                        {speaker.initials}
+                      </span>
+                    )}
+                  </div>
+                  <div>
+                    <h2 className="modal-hero-name">{speaker.name}</h2>
+                    <p
+                      className="modal-hero-talk"
+                      style={
+                        {
+                          "--talk-color": speaker.tagColor,
+                        } as React.CSSProperties
+                      }
+                    >
+                      {speaker.talkTitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="modal-cv">
+                <CVSection
+                  title="Formación académica"
+                  items={cv.formacion}
+                />
+                <CVSection title="Docencia y cargos" items={cv.docencia} />
+                <CVSection
+                  title="Membresías y reconocimientos"
+                  items={cv.membresias}
+                />
+                <CVSection title="Publicaciones" items={cv.publicaciones} />
+                <CVSection
+                  title="Líneas de investigación"
+                  items={cv.investigacion || []}
+                />
+              </div>
+            </ScrollArea>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </Dialog>
+    </AnimatePresence>
   );
 }

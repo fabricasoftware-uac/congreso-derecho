@@ -1,62 +1,151 @@
 import Image from "next/image";
+import { motion } from "motion/react";
 import { RegistrationLink } from "./RegistrationLink";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  visible: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.2, 0.7, 0.2, 1] as const,
+      delay,
+    },
+  }),
+};
 
 export default function HeroSection() {
   return (
     <section className="hero">
-      <div className="blob b1"></div>
-      <div className="blob b2"></div>
-      <div className="blob b3"></div>
-      <div className="blob b4"></div>
+      <motion.div
+        className="blob b1"
+        animate={{ x: [0, 18, 0], y: [0, -16, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="blob b2"
+        animate={{ x: [0, 18, 0], y: [0, -16, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="blob b3"
+        animate={{ x: [0, 18, 0], y: [0, -16, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="blob b4"
+        animate={{ x: [0, 18, 0], y: [0, -16, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
+
       <div className="wrap hero-inner">
         <div className="hero-copy">
-          <span className="eyebrow" data-anim style={{ "--d": ".05s" } as React.CSSProperties}>
+          <motion.span
+            className="eyebrow"
+            custom={0.05}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
             <span className="dots">
-              <i style={{ background: "var(--orange)" }}></i>
-              <i style={{ background: "var(--teal)" }}></i>
-              <i style={{ background: "var(--crimson)" }}></i>
+              <i style={{ background: "var(--orange)" }} />
+              <i style={{ background: "var(--teal)" }} />
+              <i style={{ background: "var(--crimson)" }} />
             </span>
             17–18 Sep · Popayán · 2026
-          </span>
-          <h1 className="hero-title" data-anim style={{ "--d": ".14s" } as React.CSSProperties}>
+          </motion.span>
+
+          <motion.h1
+            className="hero-title"
+            custom={0.14}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
             Dos días para debatir el{" "}
             <span className="hl">Derecho del presente</span>.
-          </h1>
-          <p className="hero-sub" data-anim style={{ "--d": ".26s" } as React.CSSProperties}>
-            I Congreso Internacional de Derecho. Ponentes internacionales, seis líneas temáticas y un punto de encuentro entre la academia, la justicia y el ejercicio profesional.
-          </p>
-          <div className="hero-actions" data-anim style={{ "--d": ".36s" } as React.CSSProperties}>
+          </motion.h1>
+
+          <motion.p
+            className="hero-sub"
+            custom={0.26}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
+            I Congreso Internacional de Derecho. Ponentes internacionales,
+            seis líneas temáticas y un punto de encuentro entre la academia, la
+            justicia y el ejercicio profesional.
+          </motion.p>
+
+          <motion.div
+            className="hero-actions"
+            custom={0.36}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
             <RegistrationLink className="btn btn-primary" href="#inversion">
               Inscríbete <span className="arr">→</span>
             </RegistrationLink>
             <a className="btn btn-ghost" href="#ponencias">
               Presenta tu ponencia
             </a>
-          </div>
-          <div className="hero-meta" data-anim style={{ "--d": ".46s" } as React.CSSProperties}>
+          </motion.div>
+
+          <motion.div
+            className="hero-meta"
+            custom={0.46}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+          >
             <span>
-              <i className="pin" style={{ background: "var(--blue)" }}></i>{" "}
+              <i className="pin" style={{ background: "var(--blue)" }} />{" "}
               <b>Club Campestre</b>, Popayán
             </span>
             <span>
-              <i className="pin" style={{ background: "var(--teal)" }}></i>{" "}
+              <i className="pin" style={{ background: "var(--teal)" }} />{" "}
               Presencial y virtual
             </span>
             <span>
-              <i className="pin" style={{ background: "var(--gold)" }}></i>{" "}
+              <i className="pin" style={{ background: "var(--gold)" }} />{" "}
               Con certificación
             </span>
-          </div>
+          </motion.div>
         </div>
+
         <div className="hero-art" aria-hidden="true">
-          <div className="art-ring"></div>
-          <Image className="mark" src="/mark.png" alt="" width={360} height={360} priority />
-          <span className="chip c1">Público</span>
-          <span className="chip c2">Laboral</span>
-          <span className="chip c3">Familia &amp; Negocios</span>
-          <span className="chip c4">Penal</span>
-          <span className="chip c5">Ambiental</span>
-          <span className="chip c6">Tecnología</span>
+          <motion.div className="art-ring" animate={{ x: [0, 18, 0], y: [0, -16, 0] }} transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }} />
+          <motion.div className="mark-wrapper" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}>
+            <Image
+              className="mark"
+              src="/mark.png"
+              alt=""
+              width={360}
+              height={360}
+              priority
+            />
+          </motion.div>
+          <motion.span className="chip c1" animate={{ y: [0, -14, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}>
+            Público
+          </motion.span>
+          <motion.span className="chip c2" animate={{ y: [0, -14, 0] }} transition={{ duration: 6.4, delay: 0.4, repeat: Infinity, ease: "easeInOut" }}>
+            Laboral
+          </motion.span>
+          <motion.span className="chip c3" animate={{ y: [0, -14, 0] }} transition={{ duration: 5.6, delay: 0.8, repeat: Infinity, ease: "easeInOut" }}>
+            Familia &amp; Negocios
+          </motion.span>
+          <motion.span className="chip c4" animate={{ y: [0, -14, 0] }} transition={{ duration: 6, delay: 0.2, repeat: Infinity, ease: "easeInOut" }}>
+            Penal
+          </motion.span>
+          <motion.span className="chip c5" animate={{ y: [0, -14, 0] }} transition={{ duration: 5.3, delay: 1, repeat: Infinity, ease: "easeInOut" }}>
+            Ambiental
+          </motion.span>
+          <motion.span className="chip c6" animate={{ y: [0, -14, 0] }} transition={{ duration: 6.8, delay: 0.6, repeat: Infinity, ease: "easeInOut" }}>
+            Tecnología
+          </motion.span>
         </div>
       </div>
     </section>

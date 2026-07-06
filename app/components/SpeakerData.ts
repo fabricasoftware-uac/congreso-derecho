@@ -23,6 +23,7 @@ export interface Speaker {
   tagColor: string;
   highlights: string[];
   cv: SpeakerCV;
+  photo?: string;
 }
 
 export const speakers: Speaker[] = [
@@ -36,6 +37,7 @@ export const speakers: Speaker[] = [
     gradientC1: "var(--teal)",
     gradientC2: "#1d7d86",
     tagColor: "#159b8c",
+    photo: "/MARIO-MARTIN-GARMENDIA.webp",
     highlights: [
       "Profesor Titular de Derecho del Trabajo, Universidad de la República",
       "Doctor en Derecho y Ciencias Sociales",
@@ -112,6 +114,7 @@ export const speakers: Speaker[] = [
     gradientC1: "var(--gold)",
     gradientC2: "var(--orange)",
     tagColor: "#d68a14",
+    photo: "/PAOLA-FRIAS.webp",
     highlights: [
       "Docente universitaria, Universidad Externado de Colombia",
       "Candidata a Doctora en Derecho",
@@ -185,6 +188,7 @@ export const speakers: Speaker[] = [
     gradientC1: "var(--blue)",
     gradientC2: "var(--navy)",
     tagColor: "var(--blue)",
+    photo: "/OSCAR-PEREZ-DE-LA-FUENTE.webp",
     highlights: [
       "Profesor Titular de Filosofía del Derecho, Universidad Carlos III de Madrid",
       "Doctor en Filosofía del Derecho",
@@ -239,6 +243,7 @@ export const speakers: Speaker[] = [
     gradientC1: "var(--orange)",
     gradientC2: "var(--cta)",
     tagColor: "var(--orange)",
+    photo: "/MAXIMILIAN-SIEBERT.webp",
     highlights: [
       "Fellow en Políticas de Salud y Epidemiología, Harvard Medical School",
       "Doctor en Epidemiología Clínica",

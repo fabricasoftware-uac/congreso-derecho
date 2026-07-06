@@ -17,20 +17,6 @@ export default function SpeakersSection() {
     setActiveIndex(null);
   }, []);
 
-  const goToPrev = useCallback(() => {
-    setActiveIndex((prev) => {
-      if (prev === null) return null;
-      return prev > 0 ? prev - 1 : speakers.length - 1;
-    });
-  }, []);
-
-  const goToNext = useCallback(() => {
-    setActiveIndex((prev) => {
-      if (prev === null) return null;
-      return prev < speakers.length - 1 ? prev + 1 : 0;
-    });
-  }, []);
-
   return (
     <section className="section" id="ponentes">
       <div className="wrap">
@@ -45,7 +31,7 @@ export default function SpeakersSection() {
             </span>
             <h2 className="section-title">Las voces del Congreso</h2>
             <p className="section-intro">
-              Especialistas que están marcando la conversación jurídica, dentro y fuera del país. La agenda sigue creciendo.
+              Especialistas que están marcando la conversación jurídica, dentro y fuera del país.
             </p>
           </div>
         </ScrollReveal>
@@ -68,13 +54,7 @@ export default function SpeakersSection() {
       {activeIndex !== null && (
         <SpeakerModal
           speaker={speakers[activeIndex]}
-          speakerIndex={activeIndex}
-          total={speakers.length}
           onClose={closeModal}
-          onPrev={goToPrev}
-          onNext={goToNext}
-          hasPrev={true}
-          hasNext={true}
         />
       )}
     </section>
