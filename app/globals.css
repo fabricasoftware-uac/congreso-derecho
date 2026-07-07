@@ -338,14 +338,14 @@ section{scroll-margin-top:84px}
     border-radius:22px 22px 0 0; max-height:88vh; max-width:100%;
   }
   .modal-topbar{padding:8px 14px}
-  .modal-header{padding:18px 16px 14px}
+  .modal-header{padding:18px 16px 14px; display:flex; flex-direction:column}
   .modal-cv{padding:0 16px 24px}
-  .modal-header-badges{gap:5px; margin-bottom:12px}
-  .modal-badge-credential{font-size:.6rem; padding:.3em .55em; border-radius:6px}
-  .modal-badge-country{font-size:.58rem; padding:.3em .55em; border-radius:6px}
-  .modal-badge-institution{font-size:.6rem; padding:.3em .55em; border-radius:6px; max-width:200px}
-  .modal-header-main{gap:12px}
-  .modal-hero-photo{width:56px; height:56px; min-width:56px; border-radius:14px}
+  .modal-header-badges{gap:5px; margin-bottom:0; margin-top:12px; flex-direction:column; align-items:flex-start}
+  .modal-badge-credential{font-size:.6rem; padding:.3em .55em; border-radius:6px; align-self:flex-start}
+  .modal-badge-country{font-size:.58rem; padding:.3em .55em; border-radius:6px; align-self:flex-start}
+  .modal-badge-institution{font-size:.6rem; padding:.3em .55em; border-radius:6px; max-width:100%; white-space:normal}
+  .modal-header-main{gap:12px; flex-direction:column; align-items:center; text-align:center; order:-1}
+  .modal-hero-photo{width:96px; height:96px; min-width:96px; border-radius:20px}
   .modal-hero-ini{font-size:1.4rem}
   .modal-hero-name{font-size:1.15rem}
   .modal-hero-talk{font-size:.82rem; margin-top:.35rem}
