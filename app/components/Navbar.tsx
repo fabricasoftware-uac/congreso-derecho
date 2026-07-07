@@ -9,7 +9,7 @@ export default function Navbar() {
     <header className="site-nav">
       <div className="wrap nav-inner">
         <Link className="nav-logo" href="#top" aria-label="I Congreso Internacional de Derecho">
-          <Image src="/logo.png" alt="" width={184} height={42} priority />
+          <Image src="/logo.png" alt="" width={1000} height={335} priority />
         </Link>
         <nav className="nav-links" aria-label="Secciones">
           <Link href="#ponentes">Ponentes</Link>

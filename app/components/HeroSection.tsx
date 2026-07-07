@@ -124,7 +124,7 @@ export default function HeroSection() {
               src="/mark.png"
               alt=""
               width={360}
-              height={360}
+              height={320}
               priority
             />
           </motion.div>

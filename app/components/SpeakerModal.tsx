@@ -158,7 +158,9 @@ export default function SpeakerModal({
                         <Image
                           src={speaker.photo}
                           alt={speaker.name}
-                          fill
+                          width={176}
+                          height={176}
+                          sizes="88px"
                           className="modal-hero-img"
                         />
                       ) : (
