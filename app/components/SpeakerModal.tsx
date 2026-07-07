@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { Dialog } from "@/components/ui/dialog";
+import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import type { Speaker } from "./SpeakerData";
@@ -66,7 +65,6 @@ export default function SpeakerModal({
   speaker: Speaker;
   onClose: () => void;
 }) {
-  const bodyRef = useRef<HTMLDivElement>(null);
   const { cv } = speaker;
 
   return (
@@ -77,134 +75,125 @@ export default function SpeakerModal({
           if (!open) onClose();
         }}
       >
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-50 bg-[rgba(11,39,64,.48)] backdrop-blur-md"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) onClose();
-          }}
-        />
-        <div className="modal-positioner">
+        <DialogPortal>
           <motion.div
-            key={speaker.name}
-            initial={{ opacity: 0, y: 18, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] as const }}
-            className="modal-card pointer-events-auto"
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Perfil completo de ${speaker.name}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="modal-topbar">
-              <span />
-              <button
-                className="modal-close"
-                onClick={onClose}
-                aria-label="Cerrar perfil"
-                type="button"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
-                <span className="modal-close-label">Esc</span>
-              </button>
-            </div>
-
-            <ScrollArea ref={bodyRef} className="modal-body">
-              <div className="modal-header">
-                <div className="modal-header-badges">
-                  {speaker.credential && (
-                    <Badge
-                      className="modal-badge-credential"
-                      style={
-                        {
-                          color: speaker.tagColor,
-                          background: `color-mix(in srgb, ${speaker.tagColor} 12%, transparent)`,
-                        } as React.CSSProperties
-                      }
-                    >
-                      {speaker.credential}
-                    </Badge>
-                  )}
-                  <Badge className="modal-badge-country">
-                    {speaker.country}
-                  </Badge>
-                  <Badge variant="outline" className="modal-badge-institution">
-                    {speaker.institution}
-                  </Badge>
-                </div>
-
-                <div className="modal-header-main">
-                  <div
-                    className="modal-hero-photo"
-                    style={
-                      {
-                        "--c1": speaker.gradientC1,
-                        "--c2": speaker.gradientC2,
-                      } as React.CSSProperties
-                    }
-                  >
-                    {speaker.photo ? (
-                      <Image
-                        src={speaker.photo}
-                        alt={speaker.name}
-                        fill
-                        className="modal-hero-img"
-                      />
-                    ) : (
-                      <span className="modal-hero-ini">
-                        {speaker.initials}
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <h2 className="modal-hero-name">{speaker.name}</h2>
-                    <p
-                      className="modal-hero-talk"
-                      style={
-                        {
-                          "--talk-color": speaker.tagColor,
-                        } as React.CSSProperties
-                      }
-                    >
-                      {speaker.talkTitle}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="modal-cv">
-                <CVSection
-                  title="Formación académica"
-                  items={cv.formacion}
-                />
-                <CVSection title="Docencia y cargos" items={cv.docencia} />
-                <CVSection
-                  title="Membresías y reconocimientos"
-                  items={cv.membresias}
-                />
-                <CVSection title="Publicaciones" items={cv.publicaciones} />
-                <CVSection
-                  title="Líneas de investigación"
-                  items={cv.investigacion || []}
-                />
-              </div>
-            </ScrollArea>
+            <DialogOverlay className="modal-backdrop" />
           </motion.div>
-        </div>
+          <div className="modal-positioner">
+            <motion.div
+              key={speaker.name}
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] as const }}
+              className="modal-card"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Perfil completo de ${speaker.name}`}
+            >
+              <div className="modal-topbar">
+                <span />
+                <button
+                  className="modal-close"
+                  onClick={onClose}
+                  aria-label="Cerrar perfil"
+                  type="button"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 6 6 18M6 6l12 12" />
+                  </svg>
+                  <span className="modal-close-label">Esc</span>
+                </button>
+              </div>
+
+              <ScrollArea className="modal-body">
+                <div className="modal-header">
+                  <div className="modal-header-badges">
+                    {speaker.credential && (
+                      <Badge
+                        className="modal-badge-credential"
+                        style={
+                          {
+                            color: speaker.tagColor,
+                            background: `color-mix(in srgb, ${speaker.tagColor} 12%, transparent)`,
+                          } as React.CSSProperties
+                        }
+                      >
+                        {speaker.credential}
+                      </Badge>
+                    )}
+                    <Badge className="modal-badge-country">
+                      {speaker.country}
+                    </Badge>
+                    <Badge variant="outline" className="modal-badge-institution">
+                      {speaker.institution}
+                    </Badge>
+                  </div>
+
+                  <div className="modal-header-main">
+                    <div
+                      className="modal-hero-photo"
+                      style={
+                        {
+                          "--c1": speaker.gradientC1,
+                          "--c2": speaker.gradientC2,
+                        } as React.CSSProperties
+                      }
+                    >
+                      {speaker.photo ? (
+                        <Image
+                          src={speaker.photo}
+                          alt={speaker.name}
+                          fill
+                          className="modal-hero-img"
+                        />
+                      ) : (
+                        <span className="modal-hero-ini">
+                          {speaker.initials}
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <h2 className="modal-hero-name">{speaker.name}</h2>
+                      <p
+                        className="modal-hero-talk"
+                        style={
+                          {
+                            "--talk-color": speaker.tagColor,
+                          } as React.CSSProperties
+                        }
+                      >
+                        {speaker.talkTitle}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="modal-cv">
+                  <CVSection title="Formación académica" items={cv.formacion} />
+                  <CVSection title="Docencia y cargos" items={cv.docencia} />
+                  <CVSection title="Membresías y reconocimientos" items={cv.membresias} />
+                  <CVSection title="Publicaciones" items={cv.publicaciones} />
+                  <CVSection title="Líneas de investigación" items={cv.investigacion || []} />
+                </div>
+              </ScrollArea>
+            </motion.div>
+          </div>
+        </DialogPortal>
       </Dialog>
     </AnimatePresence>
   );
