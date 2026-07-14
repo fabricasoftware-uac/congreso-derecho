@@ -55,11 +55,10 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0; font-family:var(--body); color:var(--ink); background:var(--paper);
+  font-family:var(--body); color:var(--ink); background:var(--paper);
   -webkit-font-smoothing:antialiased; line-height:1.55; overflow-x:hidden;
 }
-h1,h2,h3{font-family:var(--disp); line-height:1.04; letter-spacing:-.02em; margin:0}
-p{margin:0}
+h1,h2,h3{font-family:var(--disp); line-height:1.04; letter-spacing:-.02em}
 a{color:inherit; text-decoration:none}
 img{display:block; max-width:100%}
 .wrap{width:min(var(--wrap), 92vw); margin-inline:auto}
@@ -200,7 +199,8 @@ section{scroll-margin-top:84px}
   display:flex; flex-direction:column; height:100%;
 }
 .speaker-card-new:hover{transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:transparent}
-.speaker-institution{font-size:.78rem; color:var(--ink); opacity:.7; font-family:var(--mono); letter-spacing:.02em; margin:-.2rem 0 .6rem}
+.speaker-institution{font-size:.78rem; color:var(--ink); opacity:.7; font-family:var(--mono); letter-spacing:.02em; margin:-.2rem 0 .6rem; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap}
+.speaker-modality{display:inline-flex; align-items:center; gap:.25em; font-size:.62rem; letter-spacing:.04em; text-transform:uppercase; background:color-mix(in srgb, var(--teal) 12%, transparent); color:var(--teal); padding:.2em .55em; border-radius:6px; font-weight:600}
 .speaker-talk-new{font-size:.95rem; color:var(--ink); line-height:1.45; margin-bottom:.85rem}
 .speaker-talk-new::before{content:"\201C"; color:var(--tagc,var(--blue)); font-weight:700; margin-right:.05em}
 .speaker-talk-new::after{content:"\201D"; color:var(--tagc,var(--blue)); font-weight:700; margin-left:.05em}
@@ -259,6 +259,10 @@ section{scroll-margin-top:84px}
 .modal-badge-institution{
   border-radius:8px; font-family:var(--mono); font-size:.64rem; letter-spacing:.05em; text-transform:uppercase; font-weight:700;
   height:auto; padding:.35em .65em; max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.modal-badge-modality{
+  border-radius:8px; font-family:var(--mono); font-size:.62rem; letter-spacing:.05em; text-transform:uppercase; font-weight:700;
+  height:auto; padding:.35em .65em; background:color-mix(in srgb, var(--teal) 12%, transparent); color:var(--teal); border-color:transparent;
 }
 
 .modal-header-main{display:flex; gap:16px; align-items:center}
@@ -321,6 +325,7 @@ section{scroll-margin-top:84px}
   .modal-badge-credential{font-size:.68rem; padding:.4em .75em; letter-spacing:.06em}
   .modal-badge-country{font-size:.66rem; padding:.4em .75em; letter-spacing:.06em}
   .modal-badge-institution{font-size:.68rem; padding:.4em .75em; max-width:320px; letter-spacing:.06em}
+  .modal-badge-modality{font-size:.66rem; padding:.4em .75em; letter-spacing:.06em}
   .cv-section{margin-bottom:28px}
   .cv-section-head{gap:10px; margin-bottom:10px}
   .cv-section-icon{width:28px; height:28px; min-width:28px; border-radius:8px}
@@ -344,6 +349,7 @@ section{scroll-margin-top:84px}
   .modal-badge-credential{font-size:.6rem; padding:.3em .55em; border-radius:6px; align-self:flex-start}
   .modal-badge-country{font-size:.58rem; padding:.3em .55em; border-radius:6px; align-self:flex-start}
   .modal-badge-institution{font-size:.6rem; padding:.3em .55em; border-radius:6px; max-width:100%; white-space:normal}
+  .modal-badge-modality{font-size:.58rem; padding:.3em .55em; border-radius:6px}
   .modal-header-main{gap:12px; flex-direction:column; align-items:center; text-align:center; order:-1}
   .modal-hero-photo{width:96px; height:96px; min-width:96px; border-radius:20px}
   .modal-hero-ini{font-size:1.4rem}
@@ -591,8 +597,12 @@ select.input-field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http:/
   }
   body {
     @apply bg-background text-foreground;
+    margin: 0;
   }
   html {
     @apply font-sans;
+  }
+  h1, h2, h3, p {
+    margin: 0;
   }
 }

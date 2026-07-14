@@ -42,7 +42,7 @@ export default function PricingSection() {
                 </li>
               </ul>
               <div className="price-foot">
-                <RegistrationLink className="btn btn-primary" href="#contacto" style={{ width: "100%" }}>
+                <RegistrationLink className="btn btn-primary" style={{ width: "100%" }}>
                   Inscríbete ahora <span className="arr">→</span>
                 </RegistrationLink>
                 <span className="price-note">Pago de inscripción desde el 3 de agosto de 2026.</span>
@@ -69,7 +69,7 @@ export default function PricingSection() {
                 </li>
               </ul>
               <div className="price-foot">
-                <RegistrationLink className="btn btn-ghost" href="#contacto" style={{ width: "100%" } as React.CSSProperties}>
+                <RegistrationLink className="btn btn-ghost" style={{ width: "100%" } as React.CSSProperties}>
                   Inscríbete
                 </RegistrationLink>
                 <span className="price-note">Aplica solo durante los días del evento.</span>

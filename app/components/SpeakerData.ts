@@ -24,6 +24,7 @@ export interface Speaker {
   highlights: string[];
   cv: SpeakerCV;
   photo?: string;
+  modality?: "presencial" | "virtual";
 }
 
 export const speakers: Speaker[] = [
@@ -38,6 +39,7 @@ export const speakers: Speaker[] = [
     gradientC2: "#1d7d86",
     tagColor: "#159b8c",
     photo: "/MARIO-MARTIN-GARMENDIA.webp",
+    modality: "presencial",
     highlights: [
       "Profesor Titular de Derecho del Trabajo, Universidad de la República",
       "Doctor en Derecho y Ciencias Sociales",
@@ -115,6 +117,7 @@ export const speakers: Speaker[] = [
     gradientC2: "var(--orange)",
     tagColor: "#d68a14",
     photo: "/PAOLA-FRIAS.webp",
+    modality: "presencial",
     highlights: [
       "Docente universitaria, Universidad Externado de Colombia",
       "Candidata a Doctora en Derecho",
@@ -189,6 +192,7 @@ export const speakers: Speaker[] = [
     gradientC2: "var(--navy)",
     tagColor: "var(--blue)",
     photo: "/OSCAR-PEREZ-DE-LA-FUENTE.webp",
+    modality: "virtual",
     highlights: [
       "Profesor Titular de Filosofía del Derecho, Universidad Carlos III de Madrid",
       "Doctor en Filosofía del Derecho",
@@ -244,6 +248,7 @@ export const speakers: Speaker[] = [
     gradientC2: "var(--cta)",
     tagColor: "var(--orange)",
     photo: "/MAXIMILIAN-SIEBERT.webp",
+    modality: "presencial",
     highlights: [
       "Fellow en Políticas de Salud y Epidemiología, Harvard Medical School",
       "Doctor en Epidemiología Clínica",
@@ -278,6 +283,87 @@ export const speakers: Speaker[] = [
         { text: "Ciencia regulatoria y salud pública" },
         {
           text: "Protección de los derechos humanos, cooperación internacional y políticas de salud global",
+        },
+      ],
+    },
+  },
+  {
+    initials: "ZC",
+    name: "Zoranny Castillo Otálora",
+    credential: "Doctora",
+    country: "Colombia",
+    institution: "Consejo de Estado",
+    talkTitle:
+      "El derecho y sus consecuencias: una visión desde el análisis económico del derecho",
+    gradientC1: "var(--crimson)",
+    gradientC2: "#8B1A3F",
+    tagColor: "var(--crimson)",
+    photo: "/Zoranny-Castillo-Otalora.webp",
+    modality: "presencial",
+    highlights: [
+      "Magistrada de la Sección Tercera del Consejo de Estado",
+      "Doctora en Derecho (Cum Laude), Universidad Externado de Colombia",
+      "Amplia trayectoria en la Rama Judicial colombiana",
+    ],
+    cv: {
+      formacion: [
+        {
+          text: "Doctora en Derecho (Cum Laude) — Universidad Externado de Colombia",
+        },
+        {
+          text: "Especialista en Derecho Administrativo y Constitucional — Universidad Católica de Colombia",
+        },
+        {
+          text: "Especialista en Derecho Penal y Ciencias Forenses — Universidad Católica de Colombia",
+        },
+        {
+          text: "Especialista en Derecho Probatorio — Universidad Católica de Colombia",
+        },
+        {
+          text: "Especialista en Derecho Administrativo — Universidad Cooperativa de Colombia",
+        },
+        {
+          text: "Especialista en Derechos Humanos — Escuela Superior de Administración Pública (ESAP)",
+        },
+        { text: "Abogada — Universidad del Cauca" },
+      ],
+      docencia: [
+        {
+          text: "Magistrada de la Sección Tercera del Consejo de Estado — desde el 27 de abril de 2026",
+        },
+        {
+          text: "Magistrada en propiedad — Tribunal Administrativo del Valle del Cauca",
+        },
+        {
+          text: "Magistrada — Tribunal Administrativo del Huila",
+        },
+        {
+          text: "Magistrada — Tribunal Administrativo de Caquetá",
+        },
+        {
+          text: "Juez Segunda Administrativa del Circuito de Neiva en propiedad",
+        },
+        {
+          text: "Auxiliar Judicial — Tribunal Administrativo del Huila",
+        },
+        {
+          text: "Inspectora Urbana Grado 14 de Carrera — Municipio de Neiva",
+        },
+        {
+          text: "Profesional Universitario de Carrera — Contraloría Municipal de Neiva",
+        },
+      ],
+      membresias: [],
+      publicaciones: [],
+      investigacion: [
+        { text: "Derecho Administrativo" },
+        { text: "Responsabilidad del Estado" },
+        { text: "Derecho Constitucional" },
+        { text: "Derecho Probatorio" },
+        { text: "Derechos Humanos" },
+        { text: "Derecho Penal y Ciencias Forenses" },
+        {
+          text: "Jurisdicción de lo Contencioso Administrativo",
         },
       ],
     },

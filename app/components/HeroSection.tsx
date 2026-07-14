@@ -86,7 +86,7 @@ export default function HeroSection() {
             initial="hidden"
             animate="visible"
           >
-            <RegistrationLink className="btn btn-primary" href="#inversion">
+            <RegistrationLink className="btn btn-primary">
               Inscríbete <span className="arr">→</span>
             </RegistrationLink>
             <a className="btn btn-ghost" href="#ponencias">

@@ -142,6 +142,11 @@ export default function SpeakerModal({
                     <Badge variant="outline" className="modal-badge-institution">
                       {speaker.institution}
                     </Badge>
+                    {speaker.modality && (
+                      <Badge className="modal-badge-modality">
+                        {speaker.modality === "presencial" ? "Presencial" : "Virtual"}
+                      </Badge>
+                    )}
                   </div>
 
                   <div className="modal-header-main">

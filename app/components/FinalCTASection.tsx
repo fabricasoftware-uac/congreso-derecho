@@ -20,12 +20,12 @@ export default function FinalCTASection() {
               Sé parte del primer gran encuentro internacional del Programa de Derecho de Uniautónoma del Cauca.
             </p>
             <div className="final-actions">
-              <RegistrationLink className="btn btn-primary" href="#inversion">
+              <RegistrationLink className="btn btn-primary">
                 Inscríbete <span className="arr">→</span>
               </RegistrationLink>
               <a
                 className="btn btn-ghost-light"
-                href="https://wa.me/573102185493"
+               
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -41,14 +41,14 @@ export default function FinalCTASection() {
             <div className="contact-list">
               <div className="contact-row">
                 <span className="contact-ic">✉</span>
-                <a href="mailto:escueladederecho@uniautonoma.edu.co">
+                <a>
                   escueladederecho@uniautonoma.edu.co
                 </a>
               </div>
               <div className="contact-row">
                 <span className="contact-ic">✆</span>
                 <a
-                  href="https://wa.me/573102185493"
+                 
                   target="_blank"
                   rel="noopener noreferrer"
                 >

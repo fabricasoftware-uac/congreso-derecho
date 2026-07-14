@@ -52,6 +52,11 @@ export default function SpeakerCard({
       <h3 className="speaker-name">{speaker.name}</h3>
       <p className="speaker-institution">
         {speaker.institution} · {speaker.country}
+        {speaker.modality && (
+          <span className="speaker-modality">
+            {speaker.modality === "presencial" ? "Presencial" : "Virtual"}
+          </span>
+        )}
       </p>
 
       <p

@@ -63,7 +63,7 @@ export default function AgendaSection() {
               Dos jornadas de ponencias, presentación de libro y agenda cultural. Marca tu calendario: los cupos de la tarifa ordinaria cierran el 16 de septiembre.
             </p>
             <div style={{ marginTop: "1.6rem" }}>
-              <RegistrationLink className="btn btn-primary" href="#inversion">
+              <RegistrationLink className="btn btn-primary">
                 Reserva tu cupo <span className="arr">→</span>
               </RegistrationLink>
             </div>

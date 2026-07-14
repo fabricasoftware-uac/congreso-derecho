@@ -5,7 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-type Categoria = "estudiante_uniautonoma" | "estudiante_externo" | "egresado" | "ponente" | "administrativo";
+type Categoria = "estudiante_uniautonoma" | "externo" | "egresado" | "ponente" | "administrativo";
 type Modalidad = "presencial" | "virtual";
 type Estado = "idle" | "enviando" | "exito" | "error";
 
@@ -20,7 +20,7 @@ interface FormData {
 
 const categorias: { value: Categoria; label: string }[] = [
   { value: "estudiante_uniautonoma", label: "Estudiante Uniautónoma del Cauca" },
-  { value: "estudiante_externo", label: "Estudiante de otra institución" },
+  { value: "externo", label: "Persona externa" },
   { value: "egresado", label: "Egresado Uniautónoma del Cauca" },
   { value: "ponente", label: "Ponente" },
   { value: "administrativo", label: "Administrativo Uniautónoma del Cauca" },
@@ -62,10 +62,11 @@ export default function InscripcionPage() {
     try {
       await fetch(APPSCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
           ...form,
-          fecha: new Date().toISOString(),
+          fecha_registro: new Date().toISOString(),
           estado: "pendiente",
         }),
       });
@@ -97,16 +98,16 @@ export default function InscripcionPage() {
               </svg>
               Volver al sitio
             </Link>
-            <div className="bg-white rounded-[26px] border border-[rgba(11,39,64,.12)] p-8 text-center shadow-[0_10px_30px_rgba(11,39,64,.1)]">
-              <div className="w-16 h-16 rounded-full bg-[var(--teal)]/15 flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-[26px] border border-[rgba(11,39,64,.12)] p-8 md:p-10 text-center shadow-[0_10px_30px_rgba(11,39,64,.1)]">
+              <div className="w-16 h-16 rounded-full bg-[var(--teal)]/15 flex items-center justify-center mx-auto mb-5">
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
               </div>
-              <h2 className="text-xl font-bold text-[var(--ink)] mb-2 font-[family-name:var(--font-display)]">
+              <h2 className="text-xl font-bold text-[var(--ink)] mb-3 font-[family-name:var(--font-display)]">
                 ¡Inscripción enviada!
               </h2>
-              <p className="text-[var(--ink)]/70 mb-6 text-sm leading-relaxed">
+              <p className="text-[var(--ink)]/70 mb-7 text-sm leading-relaxed">
                 Tus datos serán validados por la universidad. Recibirás un correo con el enlace de pago una vez aprobada tu inscripción.
               </p>
               <Link href="/" className="btn btn-primary">
@@ -245,7 +246,7 @@ export default function InscripcionPage() {
             <button
               type="submit"
               disabled={estado === "enviando"}
-              className="btn btn-primary w-full mt-6"
+              className="btn btn-primary w-full my-6"
             >
               {estado === "enviando" ? (
                 <>
@@ -281,7 +282,7 @@ export default function InscripcionPage() {
               )}
             </button>
 
-            <p className="mt-4 text-xs text-[var(--ink)]/50 text-center">
+            <p className="mt-10 text-xs text-[var(--ink)]/50 text-center">
               Tus datos serán tratados conforme a la política de privacidad de la Corporación Universitaria Autónoma del Cauca.
             </p>
           </form>
