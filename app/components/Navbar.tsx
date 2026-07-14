@@ -19,7 +19,7 @@ export default function Navbar() {
           <Link href="#ponencias">Ponencias</Link>
         </nav>
         <div className="nav-cta">
-          <RegistrationLink className="btn btn-primary" href="#inversion">
+          <RegistrationLink className="btn btn-primary">
             Inscríbete
           </RegistrationLink>
         </div>
