@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 type Categoria = "estudiante_uniautonoma" | "externo" | "egresado" | "administrativo" | "publico_general";
-type Modalidad = "presencial" | "virtual";
 type Estado = "idle" | "enviando" | "exito" | "error";
 
 interface FormData {
@@ -15,7 +14,6 @@ interface FormData {
   telefono: string;
   cedula: string;
   categoria: Categoria | "";
-  modalidad: Modalidad | "";
 }
 
 const categorias: { value: Categoria; label: string }[] = [
@@ -35,7 +33,6 @@ export default function InscripcionPage() {
     telefono: "",
     cedula: "",
     categoria: "",
-    modalidad: "",
   });
   const [estado, setEstado] = useState<Estado>("idle");
   const [errores, setErrores] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -48,7 +45,6 @@ export default function InscripcionPage() {
     if (!form.telefono.trim()) e.telefono = "Requerido";
     if (!form.cedula.trim()) e.cedula = "Requerido";
     if (!form.categoria) e.categoria = "Selecciona una categoría";
-    if (!form.modalidad) e.modalidad = "Selecciona una modalidad";
     setErrores(e);
     return Object.keys(e).length === 0;
   }
@@ -66,13 +62,14 @@ export default function InscripcionPage() {
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
           ...form,
+          modalidad: "presencial",
           fecha_registro: new Date().toISOString(),
           estado: "pendiente",
         }),
       });
 
       setEstado("exito");
-      setForm({ nombre: "", email: "", telefono: "", cedula: "", categoria: "", modalidad: "" });
+      setForm({ nombre: "", email: "", telefono: "", cedula: "", categoria: "" });
     } catch {
       setEstado("error");
     }
@@ -135,13 +132,6 @@ export default function InscripcionPage() {
                 </svg>
                 Volver al sitio
               </Link>
-            <span className="eyebrow">
-              <span className="dots">
-                <i style={{ background: "var(--orange)" }} />
-                <i style={{ background: "var(--teal)" }} />
-              </span>{" "}
-              Inscripción
-            </span>
             <h1 className="section-title">Formulario de inscripción</h1>
             <p className="section-intro">
               Completa tus datos. La universidad los validará y recibirás un enlace de pago por correo.
@@ -186,7 +176,7 @@ export default function InscripcionPage() {
                 </Campo>
               </div>
 
-              <Campo label="Número de cédula" error={errores.cedula} required>
+              <Campo label="Número de documento" error={errores.cedula} required>
                 <input
                   type="text"
                   value={form.cedula}
@@ -209,31 +199,6 @@ export default function InscripcionPage() {
                     </option>
                   ))}
                 </select>
-              </Campo>
-
-              <Campo label="Modalidad" error={errores.modalidad} required>
-                <div className="flex gap-3">
-                  {(["presencial", "virtual"] as Modalidad[]).map((m) => (
-                    <label
-                      key={m}
-                      className={`flex-1 flex items-center justify-center gap-2 rounded-xl border px-4 py-3 cursor-pointer text-sm font-medium transition-all ${
-                        form.modalidad === m
-                          ? "border-[var(--navy)] bg-[var(--navy)] text-white"
-                          : "border-[rgba(11,39,64,.12)] bg-white text-[var(--ink)] hover:border-[var(--navy)]/30"
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="modalidad"
-                        value={m}
-                        checked={form.modalidad === m}
-                        onChange={(e) => actualizar("modalidad", e.target.value)}
-                        className="sr-only"
-                      />
-                      {m === "presencial" ? "Presencial" : "Virtual"}
-                    </label>
-                  ))}
-                </div>
               </Campo>
             </div>
 

@@ -15,10 +15,6 @@ export default function StatsSection() {
             <div className="stat-num">+16</div>
             <div className="stat-lab">ponentes confirmados</div>
           </div>
-          <div className="stat">
-            <div className="stat-num">70%</div>
-            <div className="stat-lab">asistencia para certificar</div>
-          </div>
         </div>
       </div>
     </section>

@@ -16,7 +16,7 @@ export default function PricingSection() {
             </span>
             <h2 className="section-title">Asegura tu cupo</h2>
             <p className="section-intro">
-              Toda inscripción incluye certificación con el 70% de participación. La tarifa ordinaria es la más económica: aplica hasta el 16 de septiembre.
+              Toda inscripción incluye certificación. La tarifa ordinaria es la más económica: aplica hasta el 16 de septiembre.
             </p>
           </div>
         </ScrollReveal>
@@ -33,8 +33,8 @@ export default function PricingSection() {
                   <span className="price-amt">$120.000</span>
                 </li>
                 <li className="price-row">
-                  <span className="price-cat">Estudiantes de otras instituciones</span>
-                  <span className="price-amt">$135.000</span>
+                  <span className="price-cat">Estudiantes de pregrado de otras instituciones</span>
+                  <span className="price-amt">$130.000</span>
                 </li>
                 <li className="price-row">
                   <span className="price-cat">Público general</span>
@@ -53,19 +53,19 @@ export default function PricingSection() {
           <ScrollReveal stagger=".08s">
             <div className="price-card">
               <span className="price-kicker">Tarifa extemporánea</span>
-              <div className="price-when">17 y 18 de septiembre</div>
+              <div className="price-when">A partir del 17 de septiembre</div>
               <ul className="price-rows">
                 <li className="price-row">
                   <span className="price-cat">Familia Uniautónoma — estudiantes, administrativos y egresados</span>
                   <span className="price-amt">$140.000</span>
                 </li>
                 <li className="price-row">
-                  <span className="price-cat">Estudiantes de otras instituciones</span>
-                  <span className="price-amt">Pendiente</span>
+                  <span className="price-cat">Estudiantes de pregrado de otras instituciones</span>
+                  <span className="price-amt">$150.000</span>
                 </li>
                 <li className="price-row">
                   <span className="price-cat">Público general</span>
-                  <span className="price-amt">Pendiente</span>
+                  <span className="price-amt">$160.000</span>
                 </li>
               </ul>
               <div className="price-foot">
