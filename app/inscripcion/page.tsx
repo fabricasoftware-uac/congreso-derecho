@@ -5,7 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-type Categoria = "estudiante_uniautonoma" | "externo" | "egresado" | "ponente" | "administrativo";
+type Categoria = "estudiante_uniautonoma" | "externo" | "egresado" | "administrativo" | "publico_general";
 type Modalidad = "presencial" | "virtual";
 type Estado = "idle" | "enviando" | "exito" | "error";
 
@@ -20,10 +20,10 @@ interface FormData {
 
 const categorias: { value: Categoria; label: string }[] = [
   { value: "estudiante_uniautonoma", label: "Estudiante Uniautónoma del Cauca" },
-  { value: "externo", label: "Persona externa" },
   { value: "egresado", label: "Egresado Uniautónoma del Cauca" },
-  { value: "ponente", label: "Ponente" },
   { value: "administrativo", label: "Administrativo Uniautónoma del Cauca" },
+  { value: "externo", label: "Estudiante de otra institución" },
+  { value: "publico_general", label: "Público general" },
 ];
 
 const APPSCRIPT_URL = process.env.NEXT_PUBLIC_APPSCRIPT_URL || "";
@@ -108,7 +108,7 @@ export default function InscripcionPage() {
                 ¡Inscripción enviada!
               </h2>
               <p className="text-[var(--ink)]/70 mb-7 text-sm leading-relaxed">
-                Tus datos serán validados por la universidad. Recibirás un correo con el enlace de pago una vez aprobada tu inscripción.
+                Tus datos serán validados por la universidad. Recibirás el enlace de pago en tu correo electrónico una vez aprobada tu inscripción.
               </p>
               <Link href="/" className="btn btn-primary">
                 Volver al inicio

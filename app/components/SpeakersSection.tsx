@@ -40,7 +40,7 @@ export default function SpeakersSection() {
           {speakers.map((speaker, i) => (
             <ScrollReveal
               key={speaker.initials}
-              stagger={["0s", ".08s", ".16s", ".24s"][i]}
+              stagger={["0s", ".08s", ".16s", ".24s", ".32s"][i]}
             >
               <SpeakerCard
                 speaker={speaker}
@@ -49,6 +49,12 @@ export default function SpeakersSection() {
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal stagger=".4s">
+          <p className="text-center text-[var(--ink)]/70 text-sm mt-10">
+            Más ponentes se sumarán próximamente. La agenda sigue creciendo.
+          </p>
+        </ScrollReveal>
       </div>
 
       {activeIndex !== null && (

@@ -30,22 +30,22 @@ export default function PricingSection() {
               <ul className="price-rows">
                 <li className="price-row">
                   <span className="price-cat">Familia Uniautónoma — estudiantes, administrativos y egresados</span>
-                  <span className="price-amt">$80.000</span>
+                  <span className="price-amt">$120.000</span>
                 </li>
                 <li className="price-row">
                   <span className="price-cat">Estudiantes de otras instituciones</span>
-                  <span className="price-amt">$90.000</span>
+                  <span className="price-amt">$135.000</span>
                 </li>
                 <li className="price-row">
-                  <span className="price-cat">Ponentes</span>
-                  <span className="price-amt">$100.000</span>
+                  <span className="price-cat">Público general</span>
+                  <span className="price-amt">$150.000</span>
                 </li>
               </ul>
               <div className="price-foot">
                 <RegistrationLink className="btn btn-primary" style={{ width: "100%" }}>
                   Inscríbete ahora <span className="arr">→</span>
                 </RegistrationLink>
-                <span className="price-note">Pago de inscripción desde el 3 de agosto de 2026.</span>
+                <span className="price-note">Pago de inscripción desde el 3 de agosto de 2026. Financiación disponible.</span>
               </div>
             </div>
           </ScrollReveal>
@@ -57,15 +57,15 @@ export default function PricingSection() {
               <ul className="price-rows">
                 <li className="price-row">
                   <span className="price-cat">Familia Uniautónoma — estudiantes, administrativos y egresados</span>
-                  <span className="price-amt">$100.000</span>
+                  <span className="price-amt">$140.000</span>
                 </li>
                 <li className="price-row">
                   <span className="price-cat">Estudiantes de otras instituciones</span>
-                  <span className="price-amt">$110.000</span>
+                  <span className="price-amt">Pendiente</span>
                 </li>
                 <li className="price-row">
-                  <span className="price-cat">Ponentes</span>
-                  <span className="price-amt">$120.000</span>
+                  <span className="price-cat">Público general</span>
+                  <span className="price-amt">Pendiente</span>
                 </li>
               </ul>
               <div className="price-foot">
