@@ -14,6 +14,7 @@ interface FormData {
   telefono: string;
   cedula: string;
   categoria: Categoria | "";
+  direccion: string;
 }
 
 const categorias: { value: Categoria; label: string }[] = [
@@ -26,6 +27,14 @@ const categorias: { value: Categoria; label: string }[] = [
 
 const APPSCRIPT_URL = process.env.NEXT_PUBLIC_APPSCRIPT_URL || "";
 
+const VALORES: Record<string, string> = {
+  estudiante_uniautonoma: "120000",
+  egresado: "120000",
+  administrativo: "120000",
+  externo: "130000",
+  publico_general: "150000",
+};
+
 export default function InscripcionPage() {
   const [form, setForm] = useState<FormData>({
     nombre: "",
@@ -33,9 +42,14 @@ export default function InscripcionPage() {
     telefono: "",
     cedula: "",
     categoria: "",
+    direccion: "",
   });
   const [estado, setEstado] = useState<Estado>("idle");
   const [errores, setErrores] = useState<Partial<Record<keyof FormData, string>>>({});
+  const [carnetFile, setCarnetFile] = useState<File | null>(null);
+  const [carnetError, setCarnetError] = useState("");
+  const [identificacionFile, setIdentificacionFile] = useState<File | null>(null);
+  const [identificacionError, setIdentificacionError] = useState("");
 
   function validar(): boolean {
     const e: Partial<Record<keyof FormData, string>> = {};
@@ -44,9 +58,32 @@ export default function InscripcionPage() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Email inválido";
     if (!form.telefono.trim()) e.telefono = "Requerido";
     if (!form.cedula.trim()) e.cedula = "Requerido";
+    if (!form.direccion.trim()) e.direccion = "Requerido";
     if (!form.categoria) e.categoria = "Selecciona una categoría";
+    let archOk = true;
+    if (form.categoria === "externo" && !carnetFile) {
+      setCarnetError("Debes adjuntar el carnet estudiantil");
+      archOk = false;
+    } else {
+      setCarnetError("");
+    }
+    if (!identificacionFile) {
+      setIdentificacionError("Debes adjuntar el documento de identificación");
+      archOk = false;
+    } else {
+      setIdentificacionError("");
+    }
     setErrores(e);
-    return Object.keys(e).length === 0;
+    return Object.keys(e).length === 0 && archOk;
+  }
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve((reader.result as string).split(",")[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   }
 
   async function handleSubmit(ev: FormEvent) {
@@ -55,6 +92,19 @@ export default function InscripcionPage() {
 
     setEstado("enviando");
 
+    let carnet_base64 = "";
+    let carnet_nombre = "";
+    if (carnetFile) {
+      carnet_base64 = await fileToBase64(carnetFile);
+      carnet_nombre = carnetFile.name;
+    }
+    let identificacion_base64 = "";
+    let identificacion_nombre = "";
+    if (identificacionFile) {
+      identificacion_base64 = await fileToBase64(identificacionFile);
+      identificacion_nombre = identificacionFile.name;
+    }
+
     try {
       await fetch(APPSCRIPT_URL, {
         method: "POST",
@@ -62,6 +112,11 @@ export default function InscripcionPage() {
         headers: { "Content-Type": "text/plain" },
         body: JSON.stringify({
           ...form,
+          valor: VALORES[form.categoria] || "",
+          carnet_base64,
+          carnet_nombre,
+          identificacion_base64,
+          identificacion_nombre,
           modalidad: "presencial",
           fecha_registro: new Date().toISOString(),
           estado: "pendiente",
@@ -69,7 +124,11 @@ export default function InscripcionPage() {
       });
 
       setEstado("exito");
-      setForm({ nombre: "", email: "", telefono: "", cedula: "", categoria: "" });
+      setForm({ nombre: "", email: "", telefono: "", cedula: "", categoria: "", direccion: "" });
+      setCarnetFile(null);
+      setCarnetError("");
+      setIdentificacionFile(null);
+      setIdentificacionError("");
     } catch {
       setEstado("error");
     }
@@ -186,6 +245,16 @@ export default function InscripcionPage() {
                 />
               </Campo>
 
+              <Campo label="Dirección" error={errores.direccion} required>
+                <input
+                  type="text"
+                  value={form.direccion}
+                  onChange={(e) => actualizar("direccion", e.target.value)}
+                  placeholder="Ej. Calle 123 #45-67, Popayán"
+                  className="input-field"
+                />
+              </Campo>
+
               <Campo label="Categoría" error={errores.categoria} required>
                 <select
                   value={form.categoria}
@@ -200,6 +269,128 @@ export default function InscripcionPage() {
                   ))}
                 </select>
               </Campo>
+
+              {form.categoria === "externo" && (
+                <label className="block">
+                  <span className="block text-sm font-semibold text-[var(--ink)] mb-1.5">
+                    Carnet estudiantil *
+                  </span>
+                  <div className={`file-upload ${carnetError ? "file-upload--error" : ""}`}>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0] || null;
+                        if (file && file.size > 5 * 1024 * 1024) {
+                          setCarnetError("El archivo supera los 5MB");
+                          setCarnetFile(null);
+                          return;
+                        }
+                        setCarnetFile(file);
+                        setCarnetError("");
+                      }}
+                      className="file-upload-input"
+                      id="carnet-upload"
+                    />
+                    <label htmlFor="carnet-upload" className="file-upload-label">
+                      {carnetFile ? (
+                        <div className="file-upload-selected">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="16" y1="13" x2="8" y2="13" />
+                            <line x1="12" y1="9" x2="12" y2="17" />
+                          </svg>
+                          <span>{carnetFile.name}</span>
+                          <button
+                            type="button"
+                            onClick={() => { setCarnetFile(null); setCarnetError(""); }}
+                            className="file-upload-remove"
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="18" y1="6" x2="6" y2="18" />
+                              <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="file-upload-placeholder">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                          </svg>
+                          <span>Cargar carnet</span>
+                          <span className="file-upload-hint">PDF, JPG o PNG · Máx 5MB</span>
+                        </div>
+                      )}
+                    </label>
+                  </div>
+                  {carnetError && (
+                    <span className="block text-xs text-[var(--crimson)] mt-1">{carnetError}</span>
+                  )}
+                </label>
+              )}
+
+              <label className="block">
+                <span className="block text-sm font-semibold text-[var(--ink)] mb-1.5">
+                  Documento de identificación *
+                </span>
+                <div className={`file-upload ${identificacionError ? "file-upload--error" : ""}`}>
+                  <input
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] || null;
+                      if (file && file.size > 5 * 1024 * 1024) {
+                        setIdentificacionError("El archivo supera los 5MB");
+                        setIdentificacionFile(null);
+                        return;
+                      }
+                      setIdentificacionFile(file);
+                      setIdentificacionError("");
+                    }}
+                    className="file-upload-input"
+                    id="identificacion-upload"
+                  />
+                  <label htmlFor="identificacion-upload" className="file-upload-label">
+                    {identificacionFile ? (
+                      <div className="file-upload-selected">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="16" y1="13" x2="8" y2="13" />
+                          <line x1="12" y1="9" x2="12" y2="17" />
+                        </svg>
+                        <span>{identificacionFile.name}</span>
+                        <button
+                          type="button"
+                          onClick={() => { setIdentificacionFile(null); setIdentificacionError(""); }}
+                          className="file-upload-remove"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                          </svg>
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="file-upload-placeholder">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="17 8 12 3 7 8" />
+                          <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <span>Cargar documento</span>
+                        <span className="file-upload-hint">PDF, JPG o PNG · Máx 5MB</span>
+                      </div>
+                    )}
+                  </label>
+                </div>
+                {identificacionError && (
+                  <span className="block text-xs text-[var(--crimson)] mt-1">{identificacionError}</span>
+                )}
+              </label>
             </div>
 
             {estado === "error" && (

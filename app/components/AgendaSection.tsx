@@ -60,7 +60,7 @@ export default function AgendaSection() {
               17–18<span>Septiembre de 2026 · Popayán</span>
             </div>
             <p>
-              Dos jornadas de ponencias, presentación de libro y agenda cultural. Marca tu calendario: los cupos de la tarifa ordinaria cierran el 16 de septiembre.
+              Dos jornadas de ponencias, presentación de libro y agenda cultural. Marca tu calendario: los cupos de la tarifa ordinaria cierran el 11 de septiembre.
             </p>
             <div style={{ marginTop: "1.6rem" }}>
               <RegistrationLink className="btn btn-primary">
