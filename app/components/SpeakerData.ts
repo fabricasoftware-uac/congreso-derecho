@@ -684,4 +684,35 @@ export const speakers: Speaker[] = [
     photo: "/Catalina-del-Pilar-Cardozo.webp",
     bio: "Abogada de la Universidad de Medellín, con estudios de maestría en Derecho y experiencia en derecho de las familias, género, sexualidades diversas, discapacidad y enfoques diferenciales. Cuenta con más de veinte años de experiencia como docente, investigadora, conciliadora, consultora y ponente. Es fundadora de la comunidad Wikilawyers.",
   },
+  {
+    initials: "FT",
+    name: "Fernando Carlos Terreros Calle",
+    credential: "Magíster",
+    country: "Colombia",
+    institution: "Universidad Santiago de Cali",
+    talkTitle:
+      "Perspectivas sobre la judicialización del derecho a la alimentación en Colombia",
+    gradientC1: "var(--crimson)",
+    gradientC2: "var(--orange)",
+    tagColor: "var(--crimson)",
+    photo: "/Fernando-Carlos-Terreros.webp",
+    bio: "Especialista en Derecho Administrativo y magíster en Educación Superior. Cursa estudios doctorales en Derecho, es conjuez del Tribunal Contencioso Administrativo del Valle del Cauca y director del Departamento de Derecho Público de la Universidad Santiago de Cali.",
+  },
 ];
+
+/**
+ * Slug estable para la URL de cada ponente: minúsculas, sin tildes ni ñ.
+ * "Naun Mirawal Muñoz Muñoz" -> "naun-mirawal-munoz-munoz"
+ */
+export function speakerSlug(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function getSpeakerBySlug(slug: string): Speaker | undefined {
+  return speakers.find((s) => speakerSlug(s.name) === slug);
+}

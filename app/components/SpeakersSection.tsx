@@ -1,22 +1,8 @@
-"use client";
-
-import { useState, useCallback } from "react";
 import ScrollReveal from "./ScrollReveal";
 import SpeakerCard from "./SpeakerCard";
-import SpeakerModal from "./SpeakerModal";
 import { speakers } from "./SpeakerData";
 
 export default function SpeakersSection() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const openSpeaker = useCallback((index: number) => {
-    setActiveIndex(index);
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setActiveIndex(null);
-  }, []);
-
   return (
     <section className="section" id="ponentes">
       <div className="wrap">
@@ -42,10 +28,7 @@ export default function SpeakersSection() {
               key={speaker.initials}
               stagger={`${((i % 4) * 0.08).toFixed(2)}s`}
             >
-              <SpeakerCard
-                speaker={speaker}
-                onOpen={() => openSpeaker(i)}
-              />
+              <SpeakerCard speaker={speaker} />
             </ScrollReveal>
           ))}
 
@@ -75,13 +58,6 @@ export default function SpeakersSection() {
           </ScrollReveal>
         </div>
       </div>
-
-      {activeIndex !== null && (
-        <SpeakerModal
-          speaker={speakers[activeIndex]}
-          onClose={closeModal}
-        />
-      )}
     </section>
   );
 }

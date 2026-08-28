@@ -1,14 +1,11 @@
 import Image from "next/image";
-import type { Speaker } from "./SpeakerData";
+import Link from "next/link";
+import { speakerSlug, type Speaker } from "./SpeakerData";
 import { Badge } from "@/components/ui/badge";
 
-export default function SpeakerCard({
-  speaker,
-  onOpen,
-}: {
-  speaker: Speaker;
-  onOpen: () => void;
-}) {
+export default function SpeakerCard({ speaker }: { speaker: Speaker }) {
+  const href = `/ponentes/${speakerSlug(speaker.name)}`;
+
   return (
     <article className="speaker-card-new">
       <div
@@ -51,7 +48,13 @@ export default function SpeakerCard({
         {speaker.credential}
       </Badge>
 
-      <h3 className="speaker-name">{speaker.name}</h3>
+      <h3 className="speaker-name">
+        {/* El ::after estirado hace clicable toda la card sin anidar enlaces. */}
+        <Link href={href} className="speaker-name-link">
+          {speaker.name}
+        </Link>
+      </h3>
+
       <p className="speaker-institution">
         {speaker.institution ? `${speaker.institution} · ` : ""}
         {speaker.country}
@@ -66,17 +69,12 @@ export default function SpeakerCard({
           mantiene alineadas las cards de la fila. */}
       <p
         className={`speaker-talk-new${speaker.talkTitle ? "" : " is-empty"}`}
-        title={speaker.talkTitle || undefined}
         style={{ "--tagc": speaker.tagColor } as React.CSSProperties}
       >
         {speaker.talkTitle}
       </p>
 
-      <button
-        className="btn btn-ghost speaker-more"
-        onClick={onOpen}
-        type="button"
-      >
+      <span className="btn btn-ghost speaker-more" aria-hidden="true">
         Ver perfil
         <svg
           width="16"
@@ -90,7 +88,7 @@ export default function SpeakerCard({
         >
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
-      </button>
+      </span>
     </article>
   );
 }
