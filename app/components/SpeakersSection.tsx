@@ -40,7 +40,7 @@ export default function SpeakersSection() {
           {speakers.map((speaker, i) => (
             <ScrollReveal
               key={speaker.initials}
-              stagger={["0s", ".08s", ".16s", ".24s", ".32s"][i]}
+              stagger={`${((i % 4) * 0.08).toFixed(2)}s`}
             >
               <SpeakerCard
                 speaker={speaker}
@@ -49,7 +49,7 @@ export default function SpeakersSection() {
             </ScrollReveal>
           ))}
 
-          <ScrollReveal stagger=".4s">
+          <ScrollReveal stagger={`${((speakers.length % 4) * 0.08).toFixed(2)}s`}>
             <article className="speaker-card-new speaker-ghost-card">
               <div className="speaker-ghost-visual">
                 <span className="ghost-dot ghost-dot--1" style={{ "--dc": "var(--gold)" } as React.CSSProperties} />

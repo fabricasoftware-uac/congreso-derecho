@@ -26,7 +26,9 @@ export default function SpeakerCard({
             alt={speaker.name}
             width={400}
             height={400}
-            sizes="(max-width:640px) 100vw, (max-width:980px) 50vw, 25vw"
+            /* Anchos reales de la card tras pasar el grid a auto-fill:
+               ~45vw a 2 columnas, ~30vw a 3, ~22vw a 4. */
+            sizes="(max-width:640px) 48vw, (max-width:1140px) 32vw, 23vw"
             className="object-cover"
             style={{ width: "100%", height: "100%" }}
           />
@@ -51,7 +53,8 @@ export default function SpeakerCard({
 
       <h3 className="speaker-name">{speaker.name}</h3>
       <p className="speaker-institution">
-        {speaker.institution} · {speaker.country}
+        {speaker.institution ? `${speaker.institution} · ` : ""}
+        {speaker.country}
         {speaker.modality && (
           <span className="speaker-modality">
             {speaker.modality === "presencial" ? "Presencial" : "Virtual"}
@@ -59,25 +62,22 @@ export default function SpeakerCard({
         )}
       </p>
 
+      {/* Se pinta siempre, aun sin ponencia definida: reserva el alto que
+          mantiene alineadas las cards de la fila. */}
       <p
-        className="speaker-talk-new"
+        className={`speaker-talk-new${speaker.talkTitle ? "" : " is-empty"}`}
+        title={speaker.talkTitle || undefined}
         style={{ "--tagc": speaker.tagColor } as React.CSSProperties}
       >
         {speaker.talkTitle}
       </p>
-
-      <ul className="speaker-highlights">
-        {speaker.highlights.map((h, i) => (
-          <li key={i}>{h}</li>
-        ))}
-      </ul>
 
       <button
         className="btn btn-ghost speaker-more"
         onClick={onOpen}
         type="button"
       >
-        Ver perfil completo
+        Ver perfil
         <svg
           width="16"
           height="16"

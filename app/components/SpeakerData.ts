@@ -4,11 +4,13 @@ export interface SectionItem {
 }
 
 export interface SpeakerCV {
-  formacion: SectionItem[];
-  docencia: SectionItem[];
-  membresias: SectionItem[];
-  publicaciones: SectionItem[];
+  formacion?: SectionItem[];
+  docencia?: SectionItem[];
+  experiencia?: SectionItem[];
+  membresias?: SectionItem[];
+  publicaciones?: SectionItem[];
   investigacion?: SectionItem[];
+  especialidades?: SectionItem[];
 }
 
 export interface Speaker {
@@ -16,13 +18,17 @@ export interface Speaker {
   name: string;
   credential: string;
   country: string;
-  institution: string;
+  /** Afiliacion actual. Se omite cuando la fuente no la declara. */
+  institution?: string;
   talkTitle: string;
   gradientC1: string;
   gradientC2: string;
   tagColor: string;
-  highlights: string[];
-  cv: SpeakerCV;
+  /** Ya no se pinta en la card; se conserva como dato de respaldo. */
+  highlights?: string[];
+  /** Perfil breve, para ponentes sin CV detallado. */
+  bio?: string;
+  cv?: SpeakerCV;
   photo?: string;
   modality?: "presencial" | "virtual";
 }
@@ -378,7 +384,7 @@ export const speakers: Speaker[] = [
     gradientC1: "var(--blue)",
     gradientC2: "var(--navy)",
     tagColor: "var(--blue)",
-    photo: "/gregorio_profile.png",
+    photo: "/gregorio_profile.webp",
     highlights: [
       "Procurador General de la Nación",
       "Secretario General del Senado de la República por 12 años",
@@ -420,5 +426,262 @@ export const speakers: Speaker[] = [
         { text: "Promueve el diálogo como herramienta para construir consensos alrededor de los grandes temas nacionales" },
       ],
     },
+  },
+  {
+    initials: "SM",
+    name: "Sergio Luis Mondragón Duarte",
+    credential: "Doctor",
+    country: "Colombia",
+    institution: "Universidad del Valle",
+    talkTitle:
+      "Retos de la inteligencia artificial en el ejercicio de la función judicial",
+    gradientC1: "var(--plum)",
+    gradientC2: "#6d3253",
+    tagColor: "var(--plum)",
+    photo: "/Sergio-Luis-Mondragon.webp",
+    modality: "presencial",
+    cv: {
+      formacion: [
+        {
+          text: "Doctor en Seguridad Humana y Derecho Global — Universidad Autónoma de Barcelona",
+        },
+        { text: "Posdoctorado en Educación — Universitam" },
+        { text: "Magíster en Derecho Público — Universidad Santo Tomás" },
+        {
+          text: "Magíster en Educación Digital, E-Learning y Redes Sociales — Tech Universidad Tecnológica (México)",
+        },
+        {
+          text: "Especialista en Derecho Disciplinario — Universidad Santiago de Cali",
+        },
+        {
+          text: "Especialista en Contratación Estatal — Universidad de La Sabana",
+        },
+        {
+          text: "Especialista en Derecho Administrativo y Constitucional — Universidad Católica de Colombia",
+        },
+        { text: "Abogado — Universidad Cooperativa de Colombia" },
+        { text: "Psicólogo — Fundación Universitaria Católica del Norte" },
+      ],
+      docencia: [
+        {
+          text: "Docente nombrado de la Facultad de Derecho y Ciencia Política — Universidad del Valle",
+        },
+        {
+          text: "Coordinador de Investigaciones de la Facultad de Ciencias Jurídicas y Políticas — Corporación Universitaria Remington (2021–2023)",
+        },
+        {
+          text: "Decano de la Facultad de Derecho — Universidad Antonio Nariño",
+        },
+        {
+          text: "Secretario Académico y Docente de Tiempo Completo del Programa de Derecho — Universidad Cooperativa de Colombia",
+        },
+        {
+          text: "Profesor e investigador de pregrado y posgrado en la Universidad Autónoma Latinoamericana, Universidad de Antioquia, Universidad de Caldas, UNAD, Institución Universitaria de Envigado, Politécnico Grancolombiano, Universidad del Tolima y Universidad Minuto de Dios",
+        },
+        {
+          text: "Director de la Revista de Divulgación Académica Pluriverso — Escuela de Posgrados de la Universidad Autónoma Latinoamericana",
+        },
+      ],
+      experiencia: [
+        {
+          text: "Más de diez años de experiencia en docencia, investigación y gestión académica en instituciones de educación superior",
+        },
+        {
+          text: "Experiencia en formulación, ejecución y evaluación de proyectos de investigación, diseño curricular y procesos de aseguramiento de la calidad académica",
+        },
+        {
+          text: "Contratista de la Subdirección de Contratación Estatal — Agencia Nacional de Contratación Pública Colombia Compra Eficiente",
+        },
+        {
+          text: "Experiencia en el sector público en entidades de la rama judicial, alcaldías, personerías y organismos administrativos",
+        },
+        {
+          text: "Asesor jurídico de entidades públicas y privadas, incluyendo organizaciones de los sectores inmobiliario y transporte",
+        },
+      ],
+      membresias: [
+        {
+          text: "Investigador Asociado (IA) reconocido por Minciencias, Convocatoria 894 de 2021",
+        },
+        {
+          text: "Vicepresidente del Colegio Colombiano de Abogados en Derecho Sancionatorio",
+        },
+        {
+          text: "Líder e investigador de semilleros y grupos de investigación en derecho público y ciencias jurídicas",
+        },
+        {
+          text: "Ponente y conferencista en eventos académicos nacionales e internacionales",
+        },
+        {
+          text: "Director, evaluador y jurado de trabajos de pregrado y posgrado",
+        },
+        { text: "Dominio certificado del idioma inglés en nivel C1" },
+      ],
+      publicaciones: [
+        {
+          text: "Autor de artículos científicos en revistas indexadas y de materiales académicos especializados en derecho público, derecho disciplinario y contratación estatal",
+        },
+      ],
+      especialidades: [
+        { text: "Derecho administrativo y constitucional" },
+        { text: "Derecho disciplinario" },
+        { text: "Contratación estatal" },
+        { text: "Derechos humanos y gestión pública" },
+      ],
+    },
+  },
+  {
+    initials: "NM",
+    name: "Naun Mirawal Muñoz Muñoz",
+    credential: "Magistrado",
+    country: "Colombia",
+    institution: "Tribunal Administrativo del Cauca",
+    talkTitle:
+      "El Juez Contencioso Administrativo y el control de convencionalidad: estudio de casos",
+    gradientC1: "var(--navy)",
+    gradientC2: "var(--navy-900)",
+    tagColor: "var(--navy)",
+    photo: "/Naun-Mirawal-Munoz.webp",
+    modality: "presencial",
+    cv: {
+      formacion: [
+        { text: "Abogado — Universidad del Cauca" },
+        {
+          text: "Especialista en Derecho Público — Universidad Externado de Colombia",
+        },
+        {
+          text: "Especialista en Derecho Disciplinario — Universidad Externado de Colombia",
+        },
+        {
+          text: "Especialista en Derecho Constitucional — Universidad Libre, Seccional Cali",
+        },
+        {
+          text: "Especialista en Derecho Administrativo — Universidad Libre, Seccional Cali",
+        },
+        {
+          text: "Especialista en Derechos Humanos — Escuela Superior de Administración Pública (ESAP)",
+        },
+        {
+          text: "Maestrando en Derechos Humanos — Universidad Internacional de La Rioja",
+        },
+      ],
+      docencia: [
+        {
+          text: "Magistrado del Tribunal Administrativo del Cauca, en propiedad desde 2011",
+        },
+        {
+          text: "Magistrado Auxiliar de la Sección Tercera del Consejo de Estado",
+        },
+        { text: "Juez Administrativo de Popayán" },
+        {
+          text: "Docente de pregrado y posgrado en la Universidad Cooperativa de Colombia, Universidad Autónoma del Cauca, Universidad del Cauca, Universidad Santiago de Cali, Universidad Libre Seccional Cali y la ESAP",
+        },
+        {
+          text: "Conferencista en Derecho Público, Derecho Administrativo y Procesal Administrativo, Derecho Disciplinario, Responsabilidad del Servidor Público, Función Pública, Ordenamiento Territorial y Régimen Municipal",
+        },
+      ],
+      experiencia: [
+        { text: "Personero Municipal de La Vega, Cauca" },
+        {
+          text: "Servidor público en la Contraloría Departamental del Cauca",
+        },
+        {
+          text: "Funcionario de la Procuraduría General de la Nación, Provincial Popayán",
+        },
+        {
+          text: "Amplia experiencia en la Rama Judicial, especialmente en la jurisdicción contencioso administrativa",
+        },
+        {
+          text: "Ha participado en el estudio y resolución de asuntos sobre control de legalidad de la administración pública, responsabilidad estatal y protección de derechos fundamentales",
+        },
+      ],
+      especialidades: [
+        { text: "Derecho Administrativo" },
+        { text: "Derecho Constitucional" },
+        { text: "Derecho Disciplinario" },
+        { text: "Derechos Humanos" },
+        { text: "Derecho Procesal Administrativo" },
+        { text: "Función Pública y Responsabilidad del Servidor Público" },
+        { text: "Ordenamiento Territorial y Régimen Municipal" },
+        { text: "Control de convencionalidad y protección de derechos humanos" },
+      ],
+    },
+  },
+  {
+    initials: "MH",
+    name: "María Cristina Hermida del Llano",
+    credential: "Catedrática",
+    country: "España",
+    institution: "Universidad Rey Juan Carlos",
+    talkTitle: "La IA aplicada a la administración de justicia",
+    gradientC1: "var(--crimson)",
+    gradientC2: "var(--plum)",
+    tagColor: "var(--crimson)",
+    photo: "/Maria-Cristina-Hermida.webp",
+    bio: "Catedrática de Filosofía del Derecho en la Universidad Rey Juan Carlos y doctora en Derecho, cum laude por unanimidad, por la Universidad Autónoma de Madrid. Realizó una estancia posdoctoral Alexander von Humboldt en Alemania.",
+  },
+  {
+    initials: "HM",
+    name: "Harold Mosquera Rivas",
+    credential: "Magíster",
+    country: "Colombia",
+    talkTitle: "La reforma laboral en Colombia",
+    gradientC1: "var(--teal)",
+    gradientC2: "#1d7d86",
+    tagColor: "#159b8c",
+    photo: "/Harold-Mosquera.webp",
+    bio: "Abogado e ingeniero electrónico. Especialista en Derecho Laboral y Relaciones Industriales por la Universidad Externado de Colombia; en Derecho Administrativo por la Universidad del Cauca; y en Derecho de la Seguridad Social por la Universidad de San Buenaventura. Cuenta con maestrías en Derecho del Trabajo y de la Seguridad Social y en Derecho Constitucional.",
+  },
+  {
+    initials: "MC",
+    name: "Mario Alberto Cajas Sarria",
+    credential: "Profesor",
+    country: "Colombia",
+    talkTitle:
+      "La reforma constitucional en Colombia: entre el presidencialismo y el control judicial",
+    gradientC1: "var(--blue)",
+    gradientC2: "var(--navy-700)",
+    tagColor: "var(--blue)",
+    photo: "/Mario-Alberto-Cajas.webp",
+    bio: "Abogado, jefe del Departamento de Estudios Jurídicos y profesor de la Facultad de Derecho y Ciencias Sociales. Fue designado presidente del Instituto Colombiano de Historia del Derecho (ICHD).",
+  },
+  {
+    initials: "SO",
+    name: "Santiago Obando Obando",
+    credential: "Magíster",
+    country: "Colombia",
+    talkTitle: "Constitucionalismo abusivo en Latinoamérica",
+    gradientC1: "var(--orange)",
+    gradientC2: "var(--cta)",
+    tagColor: "var(--orange)",
+    photo: "/Santiago-Obando.webp",
+    bio: "Abogado de la Universidad Cooperativa de Colombia, doctorando en Estudios Avanzados en Derechos Humanos de la Universidad Carlos III de Madrid y maestrando en Derecho del Estado, con énfasis en Derecho Público, de la Universidad Externado de Colombia. Es magíster en Derecho Médico y profesor de Derecho Privado y Sociología del Derecho.",
+  },
+  {
+    initials: "VZ",
+    name: "Víctor Alfonso Zuleta Quiñones",
+    credential: "Especialista",
+    country: "Colombia",
+    talkTitle:
+      "Aspectos novedosos de la conciliación en el derecho de las familias",
+    gradientC1: "var(--gold)",
+    gradientC2: "var(--orange)",
+    tagColor: "#d68a14",
+    photo: "/Victor-Alfonso-Zuleta.webp",
+    bio: "Abogado de la Universidad de Antioquia, especialista en Derecho Procesal Civil y Derecho de Familia. Cuenta con más de trece años de experiencia como litigante y se desempeña como docente y ponente nacional e internacional.",
+  },
+  {
+    initials: "CC",
+    name: "Catalina del Pilar Cardozo",
+    credential: "Abogada",
+    country: "Colombia",
+    institution: "Wikilawyers",
+    talkTitle:
+      "Estado actual de la filiación por socioafectividad o crianza: análisis de la Ley 2388 de 2024 y la reciente jurisprudencia de la Corte Suprema de Justicia",
+    gradientC1: "var(--plum)",
+    gradientC2: "var(--crimson)",
+    tagColor: "var(--plum)",
+    photo: "/Catalina-del-Pilar-Cardozo.webp",
+    bio: "Abogada de la Universidad de Medellín, con estudios de maestría en Derecho y experiencia en derecho de las familias, género, sexualidades diversas, discapacidad y enfoques diferenciales. Cuenta con más de veinte años de experiencia como docente, investigadora, conciliadora, consultora y ponente. Es fundadora de la comunidad Wikilawyers.",
   },
 ];

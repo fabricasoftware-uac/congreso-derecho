@@ -177,7 +177,12 @@ section{scroll-margin-top:84px}
   letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.85);
   background:rgba(0,0,0,.18); padding:.35em .6em; border-radius:6px;}
 .speaker-tag{font-family:var(--mono); font-weight:700; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--tagc, var(--blue))}
-.speaker-name{font-size:1.32rem; font-weight:700; margin:.35rem 0 .5rem}
+/* Reserva 2 líneas: "Harold Mosquera Rivas" ocupa una y "María Cristina
+   Hermida del Llano" dos. Sin esto los bloques de abajo se desalinean. */
+.speaker-name{
+  font-size:1.32rem; font-weight:700; margin:.35rem 0 .5rem;
+  min-height:calc(2 * 1.04em);
+}
 .speaker-talk{font-size:.95rem; color:#37495e; line-height:1.45}
 .speaker-talk::before{content:"\201C"; color:var(--tagc,var(--blue)); font-weight:700; margin-right:.05em}
 .speaker-talk::after{content:"\201D"; color:var(--tagc,var(--blue)); font-weight:700; margin-left:.05em}
@@ -191,7 +196,19 @@ section{scroll-margin-top:84px}
 .speaker-ghost strong{font-family:var(--disp); font-weight:700; color:var(--ink); font-size:1.05rem}
 
 /* ===== SPEAKERS V2 (4-card grid) ===== */
-.speakers-grid-v2{display:grid; grid-template-columns:repeat(4,1fr); gap:22px}
+/* Son 14 cards. Con columnas fijas, a 900px quedaban 2 columnas anchísimas y
+   como la foto es 1:1 crecía a ~405px de alto: la sección se iba a 5000px.
+   auto-fill mantiene la card entre ~240 y ~285px sea cual sea el ancho, así
+   que el número de columnas baja solo (4 → 3 → 2) sin fotos gigantes. */
+.speakers-grid-v2{
+  display:grid; gap:22px;
+  grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+}
+/* Debajo de 640px auto-fill caería a 1 columna y el scroll se vuelve
+   interminable: forzamos 2 con la card en versión compacta. */
+@media (max-width:640px){
+  .speakers-grid-v2{grid-template-columns:repeat(2,1fr); gap:12px}
+}
 .speaker-card-new{
   background:var(--white); border:1px solid var(--line); border-radius:var(--r-lg);
   padding:14px 14px 22px; box-shadow:var(--shadow-sm);
@@ -201,13 +218,38 @@ section{scroll-margin-top:84px}
 .speaker-card-new:hover{transform:translateY(-5px); box-shadow:var(--shadow-md); border-color:transparent}
 .speaker-institution{font-size:.78rem; color:var(--ink); opacity:.7; font-family:var(--mono); letter-spacing:.02em; margin:-.2rem 0 .6rem; display:flex; align-items:center; gap:.4rem; flex-wrap:wrap}
 .speaker-modality{display:inline-flex; align-items:center; gap:.25em; font-size:.62rem; letter-spacing:.04em; text-transform:uppercase; background:color-mix(in srgb, var(--teal) 12%, transparent); color:var(--teal); padding:.2em .55em; border-radius:6px; font-weight:600}
-.speaker-talk-new{font-size:.95rem; color:var(--ink); line-height:1.45; margin-bottom:.85rem}
+/* Los títulos van de 30 a 154 caracteres. Reservamos el alto de 3 líneas para
+   que los títulos cortos no dejen un hueco antes del botón, pero SIN recortar:
+   los largos crecen lo que necesiten y se leen completos en la card. */
+.speaker-talk-new{
+  font-size:.92rem; color:var(--ink); line-height:1.45; margin-bottom:.9rem;
+  min-height:calc(3 * 1.45em);
+}
 .speaker-talk-new::before{content:"\201C"; color:var(--tagc,var(--blue)); font-weight:700; margin-right:.05em}
 .speaker-talk-new::after{content:"\201D"; color:var(--tagc,var(--blue)); font-weight:700; margin-left:.05em}
+/* Gregorio Eljach aún no tiene ponencia asignada: sin esto su card mostraba
+   un par de comillas sueltas. */
+.speaker-talk-new.is-empty::before, .speaker-talk-new.is-empty::after{content:none}
 .speaker-highlights{list-style:none; margin:0 0 1rem; padding:0; display:grid; gap:.45rem; flex:1}
 .speaker-highlights li{position:relative; padding-left:1rem; font-size:.82rem; color:var(--ink); opacity:.78; line-height:1.4}
 .speaker-highlights li::before{content:""; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--blue); opacity:.6}
 .speaker-more{margin-top:auto; align-self:flex-start; font-size:.88rem; padding:.7em 1.2em}
+
+/* A 2 columnas en pantallas chicas cada card queda en ~155px: hay que bajar
+   tipografías, apretar paddings y volver el botón de ancho completo. */
+@media (max-width:640px){
+  .speaker-card-new{padding:10px 10px 14px; border-radius:20px}
+  .speaker-photo{border-radius:14px; margin-bottom:11px}
+  .speaker-name{font-size:1rem; margin:.25rem 0 .35rem; min-height:calc(2 * 1.04em)}
+  .speaker-institution{font-size:.68rem; margin:-.1rem 0 .45rem; gap:.3rem}
+  .speaker-modality{font-size:.55rem; padding:.18em .45em}
+  .speaker-talk-new{font-size:.8rem; margin-bottom:.7rem; min-height:calc(3 * 1.45em)}
+  .speaker-badge-tag{font-size:.6rem; margin-bottom:.45rem}
+  .speaker-more{width:100%; align-self:stretch; font-size:.78rem; padding:.62em .8em; gap:.35em}
+  .speaker-more svg{width:13px; height:13px}
+  .speaker-photo .ph-tag{font-size:.52rem; bottom:7px; left:7px; padding:.28em .5em}
+  .speaker-photo .ini{font-size:2rem}
+}
 .speaker-badge-tag{border-radius:8px; font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.6rem; font-weight:700}
 
 /* ghost card */
@@ -352,6 +394,7 @@ section{scroll-margin-top:84px}
 
 /* CV container */
 .modal-cv{padding:0 24px 30px}
+.modal-bio{font-size:.98rem; line-height:1.6; color:var(--ink); opacity:.85; margin:0 0 8px}
 
 /* CV sections */
 .cv-section{margin-bottom:24px}
@@ -587,7 +630,7 @@ select.input-field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http:/
   .agenda-inner{grid-template-columns:1fr; gap:34px}
   .cfp-grid{grid-template-columns:1fr; gap:28px}
   .final-inner{grid-template-columns:1fr; gap:34px; padding:64px 0}
-  .speaker-grid, .line-grid, .speakers-grid-v2{grid-template-columns:repeat(2,1fr)}
+  .speaker-grid, .line-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:760px){
   .nav-links{display:none}
@@ -601,7 +644,7 @@ select.input-field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http:/
   .chip.c5{left:3%} .chip.c6{right:1%}
 }
 @media (max-width:520px){
-  .speaker-grid, .line-grid, .speakers-grid-v2{grid-template-columns:1fr}
+  .speaker-grid, .line-grid{grid-template-columns:1fr}
   .stats-inner{grid-template-columns:1fr}
   .hero-title{font-size:2.35rem}
   .foot-inner, .foot-meta{text-align:left}

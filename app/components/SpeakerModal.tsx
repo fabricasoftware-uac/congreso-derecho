@@ -18,6 +18,12 @@ const sectionIcons: Record<string, string> = {
     '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h6"/><path d="M8 11h8"/>',
   "Líneas de investigación":
     '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+  "Trayectoria profesional":
+    '<path d="M20 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 12h20"/>',
+  "Especialidades y áreas de trabajo":
+    '<path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.2l5.9-.9Z"/>',
+  "Perfil destacado":
+    '<path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.9 4.9 2.9 2.9"/><path d="m16.2 16.2 2.9 2.9"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.9 19.1 2.9-2.9"/><path d="m16.2 7.8 2.9-2.9"/>',
 };
 
 function CVSection({
@@ -25,9 +31,9 @@ function CVSection({
   items,
 }: {
   title: string;
-  items: { text: string }[];
+  items?: { text: string }[];
 }) {
-  if (!items.length) return null;
+  if (!items?.length) return null;
   const icon = sectionIcons[title];
   return (
     <div className="cv-section">
@@ -94,7 +100,7 @@ export default function SpeakerModal({
               className="modal-card"
               role="dialog"
               aria-modal="true"
-              aria-label={`Perfil completo de ${speaker.name}`}
+              aria-label={`Perfil de ${speaker.name}`}
             >
               <div className="modal-topbar">
                 <span />
@@ -139,9 +145,11 @@ export default function SpeakerModal({
                     <Badge className="modal-badge-country">
                       {speaker.country}
                     </Badge>
-                    <Badge variant="outline" className="modal-badge-institution">
-                      {speaker.institution}
-                    </Badge>
+                    {speaker.institution && (
+                      <Badge variant="outline" className="modal-badge-institution">
+                        {speaker.institution}
+                      </Badge>
+                    )}
                     {speaker.modality && (
                       <Badge className="modal-badge-modality">
                         {speaker.modality === "presencial" ? "Presencial" : "Virtual"}
@@ -191,11 +199,22 @@ export default function SpeakerModal({
                 </div>
 
                 <div className="modal-cv">
-                  <CVSection title="Formación académica" items={cv.formacion} />
-                  <CVSection title="Docencia y cargos" items={cv.docencia} />
-                  <CVSection title="Membresías y reconocimientos" items={cv.membresias} />
-                  <CVSection title="Publicaciones" items={cv.publicaciones} />
-                  <CVSection title="Líneas de investigación" items={cv.investigacion || []} />
+                  {speaker.bio && <p className="modal-bio">{speaker.bio}</p>}
+                  <CVSection
+                    title="Perfil destacado"
+                    items={speaker.highlights?.map((text) => ({ text }))}
+                  />
+                  {cv && (
+                    <>
+                      <CVSection title="Formación académica" items={cv.formacion} />
+                      <CVSection title="Docencia y cargos" items={cv.docencia} />
+                      <CVSection title="Trayectoria profesional" items={cv.experiencia} />
+                      <CVSection title="Membresías y reconocimientos" items={cv.membresias} />
+                      <CVSection title="Publicaciones" items={cv.publicaciones} />
+                      <CVSection title="Líneas de investigación" items={cv.investigacion} />
+                      <CVSection title="Especialidades y áreas de trabajo" items={cv.especialidades} />
+                    </>
+                  )}
                 </div>
               </ScrollArea>
             </motion.div>
