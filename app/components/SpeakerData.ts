@@ -698,6 +698,18 @@ export const speakers: Speaker[] = [
     photo: "/Fernando-Carlos-Terreros.webp",
     bio: "Especialista en Derecho Administrativo y magíster en Educación Superior. Cursa estudios doctorales en Derecho, es conjuez del Tribunal Contencioso Administrativo del Valle del Cauca y director del Departamento de Derecho Público de la Universidad Santiago de Cali.",
   },
+  {
+    initials: "SC",
+    name: "Silvio Castrillón Paz",
+    credential: "Magistrado",
+    country: "Colombia",
+    talkTitle: "El proceso penal en Colombia",
+    gradientC1: "var(--navy)",
+    gradientC2: "var(--plum)",
+    tagColor: "var(--plum)",
+    photo: "/Silvio-Castrillon-Paz.webp",
+    bio: "Abogado, especialista en Derecho Penal, Criminología y Derecho Constitucional. Ha ejercido como juez, fiscal seccional, fiscal delegado ante tribunales superiores y magistrado de las salas penales de los tribunales superiores de Riohacha, Pasto y Popayán.",
+  },
 ];
 
 /**
