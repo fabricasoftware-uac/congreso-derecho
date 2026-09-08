@@ -25,7 +25,7 @@ export default function SpeakersSection() {
         <div className="speakers-grid-v2">
           {speakers.map((speaker, i) => (
             <ScrollReveal
-              key={speaker.initials}
+              key={speaker.name}
               stagger={`${((i % 4) * 0.08).toFixed(2)}s`}
             >
               <SpeakerCard speaker={speaker} />

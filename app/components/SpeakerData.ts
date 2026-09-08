@@ -710,6 +710,90 @@ export const speakers: Speaker[] = [
     photo: "/Silvio-Castrillon-Paz.webp",
     bio: "Abogado, especialista en Derecho Penal, Criminología y Derecho Constitucional. Ha ejercido como juez, fiscal seccional, fiscal delegado ante tribunales superiores y magistrado de las salas penales de los tribunales superiores de Riohacha, Pasto y Popayán.",
   },
+  {
+    initials: "NF",
+    name: "Nilsa Eugenia Fajardo",
+    credential: "Doctoranda",
+    country: "Colombia",
+    institution: "Universidad Santiago de Cali",
+    talkTitle:
+      "El enfoque de género en las decisiones judiciales penales, desde la teoría reconstructivista-feminista del derecho",
+    gradientC1: "var(--plum)",
+    gradientC2: "var(--crimson)",
+    tagColor: "var(--plum)",
+    photo: "/Nilsa-Eugenia-Fajardo.png",
+    bio: "Abogada y docente investigadora con especialización en Ciencias penales y criminológicas, activista feminista, actualmente adelanta estudios de Doctorado en Derecho en la Universidad Santiago de Cali.",
+    cv: {
+      formacion: [
+        {
+          text: "Doctoranda en Derecho — Universidad Santiago de Cali (en curso)",
+        },
+        {
+          text: "Especialista en Ciencias Penales y Criminológicas",
+        },
+        { text: "Abogada" },
+      ],
+      docencia: [
+        { text: "Docente investigadora universitaria" },
+      ],
+      especialidades: [
+        {
+          text: "Decisiones judiciales penales con enfoque de género",
+        },
+        {
+          text: "Teoría reconstructivista-feminista del derecho",
+        },
+        { text: "Ciencias penales y criminológicas" },
+        { text: "Activismo feminista y derechos humanos" },
+      ],
+    },
+  },
+  {
+    initials: "JC",
+    name: "Jose Arvey Camargo Rojas",
+    credential: "Doctor",
+    country: "Colombia",
+    institution: "Universidad del Cauca",
+    talkTitle:
+      "La legitimidad democrática de la justicia constitucional en Colombia",
+    gradientC1: "var(--teal)",
+    gradientC2: "var(--navy)",
+    tagColor: "#159b8c",
+    photo: "/Jose-Arvey-Camargo-Rojas.png",
+    bio: "Profesor de la Universidad del Cauca. Abogado de la Universidad del Cauca, especialista en Contratación Estatal (Universidad Externado de Colombia) y en Justicia Constitucional y Tutela de los Derechos Fundamentales (Universidad de Pisa). Magíster en Derecho Público por la Universidad Externado de Colombia, maestro en Derecho Constitucional por el Centro de Estudios Políticos y Constitucionales de Madrid, y doctor con mención Cum Laude en Estado de Derecho y Gobernanza Global por la Universidad de Salamanca.",
+    cv: {
+      formacion: [
+        {
+          text: "Doctor con mención Cum Laude en Estado de Derecho y Gobernanza Global — Universidad de Salamanca",
+        },
+        {
+          text: "Maestro en Derecho Constitucional — Centro de Estudios Políticos y Constitucionales de Madrid",
+        },
+        {
+          text: "Magíster en Derecho Público — Universidad Externado de Colombia",
+        },
+        {
+          text: "Especialista en Justicia Constitucional y Tutela de los Derechos Fundamentales — Universidad de Pisa",
+        },
+        {
+          text: "Especialista en Contratación Estatal — Universidad Externado de Colombia",
+        },
+        { text: "Abogado — Universidad del Cauca" },
+      ],
+      docencia: [
+        { text: "Profesor — Universidad del Cauca" },
+      ],
+      especialidades: [
+        {
+          text: "Justicia constitucional y legitimidad democrática",
+        },
+        { text: "Estado de derecho y gobernanza global" },
+        { text: "Derecho público" },
+        { text: "Contratación estatal" },
+        { text: "Tutela de los derechos fundamentales" },
+      ],
+    },
+  },
 ];
 
 /**
