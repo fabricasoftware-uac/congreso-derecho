@@ -635,15 +635,57 @@ export const speakers: Speaker[] = [
   {
     initials: "MC",
     name: "Mario Alberto Cajas Sarria",
-    credential: "Profesor",
+    credential: "Doctor",
     country: "Colombia",
+    institution: "Universidad Icesi",
     talkTitle:
       "La reforma constitucional en Colombia: entre el presidencialismo y el control judicial",
     gradientC1: "var(--blue)",
     gradientC2: "var(--navy-700)",
     tagColor: "var(--blue)",
     photo: "/Mario-Alberto-Cajas.webp",
-    bio: "Abogado, jefe del Departamento de Estudios Jurídicos y profesor de la Facultad de Derecho y Ciencias Sociales. Fue designado presidente del Instituto Colombiano de Historia del Derecho (ICHD).",
+    bio: "Abogado, especialista en Derecho Público, magíster y doctor en Derecho. Es profesor de tiempo completo del Departamento de Estudios Jurídicos de la Universidad Icesi desde el año 2004. Es autor de los dos tomos de la Historia de la Corte Suprema de Justicia de Colombia, 1886-1991; del libro El control judicial a la reforma constitucional, 1910-2007; así como de numerosos capítulos de libro y artículos en revistas indexadas sobre derecho constitucional, justicia constitucional e historia del derecho. Ha sido director del Programa de Derecho, jefe del Departamento de Estudios Jurídicos y director de la Escuela de Derecho, Gobierno y Globalización de la Universidad Icesi. Es investigador Senior según clasificación del Ministerio de Ciencia, Tecnología e Innovación.",
+    cv: {
+      formacion: [
+        { text: "Doctor en Derecho" },
+        { text: "Magíster en Derecho" },
+        { text: "Especialista en Derecho Público" },
+        { text: "Abogado" },
+      ],
+      docencia: [
+        {
+          text: "Profesor de tiempo completo del Departamento de Estudios Jurídicos — Universidad Icesi (desde 2004)",
+        },
+        {
+          text: "Exdirector de la Escuela de Derecho, Gobierno y Globalización — Universidad Icesi",
+        },
+        {
+          text: "Exjefe del Departamento de Estudios Jurídicos — Universidad Icesi",
+        },
+        {
+          text: "Exdirector del Programa de Derecho — Universidad Icesi",
+        },
+      ],
+      publicaciones: [
+        {
+          text: "Historia de la Corte Suprema de Justicia de Colombia, 1886-1991 (dos tomos)",
+        },
+        {
+          text: "El control judicial a la reforma constitucional, 1910-2007",
+        },
+        {
+          text: "Numerosos capítulos de libro y artículos en revistas indexadas sobre derecho constitucional, justicia constitucional e historia del derecho",
+        },
+      ],
+      investigacion: [
+        {
+          text: "Investigador Senior (IS) según clasificación del Ministerio de Ciencia, Tecnología e Innovación",
+        },
+        {
+          text: "Líneas de investigación en derecho constitucional, justicia constitucional e historia del derecho",
+        },
+      ],
+    },
   },
   {
     initials: "SO",
